@@ -25,6 +25,45 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liunxnet", "liunx\liunxnet\
 		{6468D916-7565-4104-89F2-72B4BAFCBDDE} = {6468D916-7565-4104-89F2-72B4BAFCBDDE}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "other", "other", "{05B08146-FD39-4610-A6E5-0C5CAB903EE9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flecs", "other\flecs\flecs.vcxproj", "{2145037B-A519-4A38-818D-B55332564449}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "include", "include", "{AFFA5DBD-591D-4D66-8D1A-72FFF1EF1957}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "flecs", "flecs", "{75F39528-2D63-423B-8F08-62E7A5E52BE0}"
+	ProjectSection(SolutionItems) = preProject
+		include\flecs\flecs\addons\app.h = include\flecs\flecs\addons\app.h
+		include\flecs\flecs\bake_config.h = include\flecs\flecs\bake_config.h
+		include\flecs\flecs\addons\coredoc.h = include\flecs\flecs\addons\coredoc.h
+		include\flecs\flecs\addons\deprecated.h = include\flecs\flecs\addons\deprecated.h
+		include\flecs\flecs\addons\doc.h = include\flecs\flecs\addons\doc.h
+		include\flecs\flecs\addons\expr.h = include\flecs\flecs\addons\expr.h
+		include\flecs\flecs.h = include\flecs\flecs.h
+		include\flecs\flecs\addons\flecs_c.h = include\flecs\flecs\addons\flecs_c.h
+		include\flecs\flecs\addons\flecs_cpp.h = include\flecs\flecs\addons\flecs_cpp.h
+		include\flecs\flecs\addons\http.h = include\flecs\flecs\addons\http.h
+		include\flecs\flecs\addons\cpp\impl\iter.hpp = include\flecs\flecs\addons\cpp\impl\iter.hpp
+		include\flecs\flecs\addons\json.h = include\flecs\flecs\addons\json.h
+		include\flecs\flecs\addons\cpp\impl\lifecycle_traits.hpp = include\flecs\flecs\addons\cpp\impl\lifecycle_traits.hpp
+		include\flecs\flecs\addons\log.h = include\flecs\flecs\addons\log.h
+		include\flecs\flecs\addons\meta.h = include\flecs\flecs\addons\meta.h
+		include\flecs\flecs\addons\meta_c.h = include\flecs\flecs\addons\meta_c.h
+		include\flecs\flecs\addons\module.h = include\flecs\flecs\addons\module.h
+		include\flecs\flecs\os_api.h = include\flecs\flecs\os_api.h
+		include\flecs\flecs\addons\os_api_impl.h = include\flecs\flecs\addons\os_api_impl.h
+		include\flecs\flecs\addons\parser.h = include\flecs\flecs\addons\parser.h
+		include\flecs\flecs\addons\pipeline.h = include\flecs\flecs\addons\pipeline.h
+		include\flecs\flecs\addons\plecs.h = include\flecs\flecs\addons\plecs.h
+		include\flecs\flecs\addons\rest.h = include\flecs\flecs\addons\rest.h
+		include\flecs\flecs\addons\rules.h = include\flecs\flecs\addons\rules.h
+		include\flecs\flecs\addons\snapshot.h = include\flecs\flecs\addons\snapshot.h
+		include\flecs\flecs\addons\stats.h = include\flecs\flecs\addons\stats.h
+		include\flecs\flecs\addons\system.h = include\flecs\flecs\addons\system.h
+		include\flecs\flecs\addons\timer.h = include\flecs\flecs\addons\timer.h
+		include\flecs\flecs\addons\cpp\impl\world.hpp = include\flecs\flecs\addons\cpp\impl\world.hpp
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -133,6 +172,18 @@ Global
 		{8DBF79BE-1FC7-43CE-AE6E-3D83A6E5FF80}.Release|x86.ActiveCfg = Release|x86
 		{8DBF79BE-1FC7-43CE-AE6E-3D83A6E5FF80}.Release|x86.Build.0 = Release|x86
 		{8DBF79BE-1FC7-43CE-AE6E-3D83A6E5FF80}.Release|x86.Deploy.0 = Release|x86
+		{2145037B-A519-4A38-818D-B55332564449}.Debug|ARM.ActiveCfg = Debug|Win32
+		{2145037B-A519-4A38-818D-B55332564449}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{2145037B-A519-4A38-818D-B55332564449}.Debug|x64.ActiveCfg = Debug|x64
+		{2145037B-A519-4A38-818D-B55332564449}.Debug|x64.Build.0 = Debug|x64
+		{2145037B-A519-4A38-818D-B55332564449}.Debug|x86.ActiveCfg = Debug|Win32
+		{2145037B-A519-4A38-818D-B55332564449}.Debug|x86.Build.0 = Debug|Win32
+		{2145037B-A519-4A38-818D-B55332564449}.Release|ARM.ActiveCfg = Release|Win32
+		{2145037B-A519-4A38-818D-B55332564449}.Release|ARM64.ActiveCfg = Release|Win32
+		{2145037B-A519-4A38-818D-B55332564449}.Release|x64.ActiveCfg = Release|x64
+		{2145037B-A519-4A38-818D-B55332564449}.Release|x64.Build.0 = Release|x64
+		{2145037B-A519-4A38-818D-B55332564449}.Release|x86.ActiveCfg = Release|Win32
+		{2145037B-A519-4A38-818D-B55332564449}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,6 +194,8 @@ Global
 		{61223778-2248-4468-ADD0-F289066714A9} = {30A8AB10-58B9-486D-A098-99BF8B37981A}
 		{27C9642A-B576-4C6D-8C10-C9209A6344BE} = {156F03D3-D906-462C-ACB6-ECE5656D29CA}
 		{8DBF79BE-1FC7-43CE-AE6E-3D83A6E5FF80} = {30A8AB10-58B9-486D-A098-99BF8B37981A}
+		{2145037B-A519-4A38-818D-B55332564449} = {05B08146-FD39-4610-A6E5-0C5CAB903EE9}
+		{75F39528-2D63-423B-8F08-62E7A5E52BE0} = {AFFA5DBD-591D-4D66-8D1A-72FFF1EF1957}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {412FD16F-400D-4F16-968C-350C6CDB299E}
