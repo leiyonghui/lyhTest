@@ -2,9 +2,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="types.h" />
-    <ClInclude Include="test.h" />
+    <ClInclude Include="SharedPrt.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="List.cpp" />
+    <ClCompile Include="Shared.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
 </Project>

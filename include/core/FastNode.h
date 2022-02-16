@@ -4,6 +4,8 @@ class CFastNode
 {
     CFastNode(const CFastNode&) = delete;
     CFastNode(const CFastNode&&) = delete;
+	CFastNode operator=(const CFastNode&) = delete;
+    CFastNode operator=(const CFastNode&&) = delete;
 
 protected:
     T _data;

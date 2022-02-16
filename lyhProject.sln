@@ -36,6 +36,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{68982295-5921-4387-8618-5106E13FBB66}"
 	ProjectSection(SolutionItems) = preProject
 		include\core\FastNode.h = include\core\FastNode.h
+		include\core\List.h = include\core\List.h
+		include\core\SharedPrt.h = include\core\SharedPrt.h
+		include\core\SkipList.h = include\core\SkipList.h
+		include\core\types.h = include\core\types.h
+		include\core\Vector.h = include\core\Vector.h
 	EndProjectSection
 EndProject
 Global
