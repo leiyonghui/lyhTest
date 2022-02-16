@@ -39,6 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "flecs", "flecs", "{75F39528
 		include\flecs\flecs\addons\deprecated.h = include\flecs\flecs\addons\deprecated.h
 		include\flecs\flecs\addons\doc.h = include\flecs\flecs\addons\doc.h
 		include\flecs\flecs\addons\expr.h = include\flecs\flecs\addons\expr.h
+		include\flecs\flecs.c = include\flecs\flecs.c
 		include\flecs\flecs.h = include\flecs\flecs.h
 		include\flecs\flecs\addons\flecs_c.h = include\flecs\flecs\addons\flecs_c.h
 		include\flecs\flecs\addons\flecs_cpp.h = include\flecs\flecs\addons\flecs_cpp.h
