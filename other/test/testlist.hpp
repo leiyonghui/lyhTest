@@ -151,7 +151,7 @@ inline void testList1()
         if (value&1)
         {
             list1.erase(iter1);
-            list2.leave();
+            iter2->leave();
         }
         else
         {
