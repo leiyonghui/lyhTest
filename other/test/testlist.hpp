@@ -40,7 +40,7 @@ using CList = CValue;
 using CNode = CValue;
 
 template<class T>
-inline void lprint(CFastNode<T> list)
+inline void lprint(const CFastNode<T>& list)
 {
     for (auto iter = list.begin(); iter != list.end(); iter = iter->next())
         std::cout << " " << iter->data();
@@ -59,7 +59,7 @@ inline void lprint(CList& list)
 }
 
 template<class T>
-inline void lprint(std::list<T> list)
+inline void lprint(const std::list<T>& list)
 {
     for (auto& iter : list)
         std::cout << " " << iter;

@@ -143,6 +143,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="test_basic.cc" />
+    <ClCompile Include="wheel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="testlist.hpp" />

@@ -6,9 +6,11 @@
 using namespace std;
 
 
-int main()
-{
-    testList1();
-    system("pause");
-    return 0;
-}
+//int main()
+//{
+//    //testList1();
+//    uint32 a = 0;
+//    cout << (a >> 5) << endl;
+//    system("pause");
+//    return 0;
+//}
