@@ -29,19 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "other", "other", "{05B08146
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flecs", "other\flecs\flecs.vcxproj", "{2145037B-A519-4A38-818D-B55332564449}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "include", "include", "{AFFA5DBD-591D-4D66-8D1A-72FFF1EF1957}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "other\test\test.vcxproj", "{0BCCCCBF-EB11-4D70-8674-55C47E860C2E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{68982295-5921-4387-8618-5106E13FBB66}"
-	ProjectSection(SolutionItems) = preProject
-		include\core\FastNode.h = include\core\FastNode.h
-		include\core\List.h = include\core\List.h
-		include\core\SharedPrt.h = include\core\SharedPrt.h
-		include\core\SkipList.h = include\core\SkipList.h
-		include\core\types.h = include\core\types.h
-		include\core\Vector.h = include\core\Vector.h
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -187,7 +175,6 @@ Global
 		{8DBF79BE-1FC7-43CE-AE6E-3D83A6E5FF80} = {30A8AB10-58B9-486D-A098-99BF8B37981A}
 		{2145037B-A519-4A38-818D-B55332564449} = {05B08146-FD39-4610-A6E5-0C5CAB903EE9}
 		{0BCCCCBF-EB11-4D70-8674-55C47E860C2E} = {05B08146-FD39-4610-A6E5-0C5CAB903EE9}
-		{68982295-5921-4387-8618-5106E13FBB66} = {AFFA5DBD-591D-4D66-8D1A-72FFF1EF1957}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {412FD16F-400D-4F16-968C-350C6CDB299E}

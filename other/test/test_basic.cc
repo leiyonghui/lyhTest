@@ -420,16 +420,16 @@ bool test_timeout_method() {
     return true;
 }
 
-int main(void) {
-    bool ok = true;
-    TEST(test_single_timer_no_hierarchy);
-    TEST(test_single_timer_hierarchy);
-    TEST(test_ticks_to_next_event);
-    TEST(test_schedule_in_range);
-    TEST(test_single_timer_random);
-    TEST(test_maxexec);
-    TEST(test_reschedule_from_timer);
-    TEST(test_timeout_method);
-    // Test canceling timer from within timer
-    return ok ? 0 : 1;
-}
+//int main(void) {
+//    bool ok = true;
+//    TEST(test_single_timer_no_hierarchy);
+//    TEST(test_single_timer_hierarchy);
+//    TEST(test_ticks_to_next_event);
+//    TEST(test_schedule_in_range);
+//    TEST(test_single_timer_random);
+//    TEST(test_maxexec);
+//    TEST(test_reschedule_from_timer);
+//    TEST(test_timeout_method);
+//    // Test canceling timer from within timer
+//    return ok ? 0 : 1;
+//}

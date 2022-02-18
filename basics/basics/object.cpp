@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "object.h"
 #include <iostream>
-#include "core/types.h"
+#include "core/Types.h"
 using namespace std;
 using namespace core;
 

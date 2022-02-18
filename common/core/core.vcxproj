@@ -19,8 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\core\FastNode.h" />
+    <ClInclude Include="..\..\include\core\List.h" />
+    <ClInclude Include="..\..\include\core\SharedPrt.h" />
+    <ClInclude Include="..\..\include\core\SkipList.h" />
+    <ClInclude Include="..\..\include\core\Types.h" />
+    <ClInclude Include="..\..\include\core\Vector.h" />
     <ClInclude Include="SharedPrt.h" />
-    <ClInclude Include="types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="List.cpp" />
@@ -89,6 +94,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)libs\</OutDir>
+    <IntDir>$(SolutionDir)out\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
