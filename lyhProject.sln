@@ -30,6 +30,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "flecs", "other\flecs\flecs.vcxproj", "{2145037B-A519-4A38-818D-B55332564449}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "other\test\test.vcxproj", "{0BCCCCBF-EB11-4D70-8674-55C47E860C2E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6468D916-7565-4104-89F2-72B4BAFCBDDE} = {6468D916-7565-4104-89F2-72B4BAFCBDDE}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

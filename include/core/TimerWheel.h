@@ -41,13 +41,13 @@ namespace timerwheel
 		}
 	};
 
-	class TimerSolt
+	class TimerSlot
 	{
 		friend class TimerWheel;
 
-		TimerEvent _solt;
+		TimerEvent _slot;
 	public:
-		TimerSolt() : _solt(0, 0, 0, nullptr)
+		TimerSlot() : _slot(0, 0, 0, nullptr)
 		{
 
 		}
@@ -55,9 +55,9 @@ namespace timerwheel
 
 #define WHEEL_SIZE 256
 #define BIT_SIZE 8
-#define SOLT_SIZE 8
+#define SLOT_SIZE 8
 #define WHEEL_MASK 255
-#define SOLT_INDEX(n,i) ((uint64(n) >> ((i-1) * 8)) & WHEEL_MASK)
+#define slot_INDEX(n,i) ((uint64(n) >> ((i-1) * 8)) & WHEEL_MASK)
 
 	class TimerWheel
 	{
@@ -65,14 +65,22 @@ namespace timerwheel
 		Tick _interval;
 		Tick _remainder;
 		Tick _lasttime;
-		TimerSolt _solt[SOLT_SIZE][WHEEL_SIZE];
+		TimerSlot _slot[SLOT_SIZE][WHEEL_SIZE];
 	public:
+		TimerWheel(Tick interval = 1) : _curTick(0), _interval(interval), _remainder(0), _lasttime(0)
+		{
+
+		}
+
 		void addTimer(TimerEvent* event);
 
 		void delTimer(TimerEvent* event);
 
-		void _update();
-
 		void update(Tick now);
+
+	private:
+		void _updateSlot(int32 i);
+
+		void _update();
 	};
 }

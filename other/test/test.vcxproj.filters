@@ -4,6 +4,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="wheel.h" />
     <ClCompile Include="test_basic.cc" />
+    <ClCompile Include="testtimer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="testlist.hpp" />
