@@ -9,8 +9,9 @@ using namespace std;
 int main()
 {
     //testList1();
-    uint32 a = 0;
-    cout << (a >> 5) << endl;
+    uint64 a = (uint64(1) << 64) - 1;
+    cout << a << endl;
+    cout << a / 1000 / 24 / 60 / 60 / 365 << endl;
     system("pause");
     return 0;
 }

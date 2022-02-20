@@ -20,11 +20,18 @@
     <ClInclude Include="..\..\include\core\Vector.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\Timers.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\core\TimerWheel.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="List.cpp" />
     <ClCompile Include="Shared.cpp" />
     <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="TimerWheel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
