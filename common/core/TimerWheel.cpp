@@ -47,11 +47,23 @@ namespace timerwheel
 		}
 
 		auto& slot = _slot[i][index]._slot;
-		for (auto iter = slot.begin(); iter != slot.end(); iter = iter->next())
+		for (auto iter = slot.begin(); iter != slot.end(); )
 		{
 			auto event = iter->data();
+			iter = iter->next();
 			event->leave();
-			addTimer(event);
+			
+            Tick tick = event->_tick - _curTick;
+            assert(tick >= 0);
+            int32 slotindex = 0;
+            int32 wheelIndex = 0;
+            while (tick >= WHEEL_SIZE)
+            {
+                tick = tick >> (++slotindex * BIT_SIZE);
+            }
+            wheelIndex = tick & WHEEL_MASK;
+            assert(slotindex < SLOT_SIZE && wheelIndex < WHEEL_SIZE);
+            _slot[slotindex][wheelIndex]._slot.pushBack(*event);
 		}
 	}
 
