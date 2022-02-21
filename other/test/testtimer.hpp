@@ -3,6 +3,7 @@
 #include "core/TimerWheel.h"
 #include "core/types.h"
 #include <iostream>
+#include <assert.h>
 #include <windows.h>
 
 using namespace core;
@@ -16,20 +17,24 @@ inline void testTimer()
 {
 	TimerWheel* wheel = new TimerWheel();
 	
-	int32 maxTick = 3000;
-	for (int32 i = 1; i<= maxTick; i++)
+	int64 maxTick = 3 * 60 * 60 * 1000;
+	int32 last = 0;
+	cout << "begin: " << endl;
+	for (int64 i = 1; i<= maxTick; i++)
 	{
-		TimerEvent* event1 = new TimerEvent(1, i, 1, [i]() {
-			cout << i << endl;
+		TimerEvent* event1 = new TimerEvent(1, i, 1, [i, &last]() {
+			//cout << i << endl;
+			//assert(last < i);
+			last = i;
 		});
 		wheel->addTimer(event1);
 	}
-
+	cout << "end: " << endl;
 	int64 tick = 0;
 	while (++tick <= maxTick)
 	{
-		Sleep(1000);
-		cout << "--- "<<tick <<" ---" << endl;
+		//Sleep(1);
+		//cout << "--- "<<tick <<" ---" << endl;
 		wheel->update(tick);
 	}
 }
