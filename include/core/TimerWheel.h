@@ -79,6 +79,8 @@ namespace timerwheel
 		void update(Tick now);
 
 	private:
+		void _relink(TimerEvent* event);
+
 		void _updateSlot(int32 i);
 
 		void _update();

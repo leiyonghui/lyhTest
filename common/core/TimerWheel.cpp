@@ -10,7 +10,8 @@ namespace timerwheel
 		int32 wheelIndex = 0;
 		while (tick >= WHEEL_SIZE)
 		{
-			tick = tick >> (++slotindex * BIT_SIZE);
+			slotindex++;
+			tick = tick >> BIT_SIZE;
 		}
 		wheelIndex = tick & WHEEL_MASK;
 		assert(slotindex < SLOT_SIZE && wheelIndex < WHEEL_SIZE);
@@ -20,6 +21,7 @@ namespace timerwheel
 	void TimerWheel::delTimer(TimerEvent* event)
 	{
 		event->leave();
+		delete event;
 	}
 
 	void TimerWheel::update(Tick now)
@@ -37,6 +39,22 @@ namespace timerwheel
 		}
 	}
 
+	void TimerWheel::_relink(TimerEvent* event)
+	{
+		Tick tick = event->_tick - _curTick;
+		assert(tick >= 0);
+		int32 slotindex = 0;
+		int32 wheelIndex = 0;
+		while (tick >= WHEEL_SIZE)
+		{
+			slotindex++;
+			tick = tick >> BIT_SIZE;
+		}
+		wheelIndex = tick & WHEEL_MASK;
+		assert(slotindex < SLOT_SIZE&& wheelIndex < WHEEL_SIZE);
+		_slot[slotindex][wheelIndex]._slot.pushBack(*event);
+	}
+
 	void TimerWheel::_updateSlot(int32 i)
 	{
 		int32 index = (_curTick >> (i * BIT_SIZE)) & WHEEL_MASK;
@@ -52,18 +70,7 @@ namespace timerwheel
 			auto event = iter->data();
 			iter = iter->next();
 			event->leave();
-			
-            Tick tick = event->_tick - _curTick;
-            assert(tick >= 0);
-            int32 slotindex = 0;
-            int32 wheelIndex = 0;
-            while (tick >= WHEEL_SIZE)
-            {
-                tick = tick >> (++slotindex * BIT_SIZE);
-            }
-            wheelIndex = tick & WHEEL_MASK;
-            assert(slotindex < SLOT_SIZE && wheelIndex < WHEEL_SIZE);
-            _slot[slotindex][wheelIndex]._slot.pushBack(*event);
+			_relink(event);
 		}
 	}
 
