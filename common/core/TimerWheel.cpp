@@ -27,6 +27,7 @@ namespace timerwheel
 		if (now > _lasttime)
 		{
 			Tick diff = now - _lasttime + _remainder;
+			_lasttime = now;
 			while (diff >= _interval)
 			{
 				diff -= _interval;

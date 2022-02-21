@@ -26,9 +26,10 @@ inline void testTimer()
 	}
 
 	int64 tick = 0;
-	while (tick++ <= maxTick)
+	while (++tick <= maxTick)
 	{
 		Sleep(1000);
+		cout << "--- "<<tick <<" ---" << endl;
 		wheel->update(tick);
 	}
 }
