@@ -146,8 +146,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="testtimer.hpp" />
-    <ClCompile Include="test_basic.cc" />
-    <ClCompile Include="wheel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="testlist.hpp" />
