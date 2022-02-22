@@ -11,7 +11,7 @@
 using namespace core;
 using namespace std;
 
-using Tick = int64;
+using Tick = unsigned long long;
 using TimerEvent = timerwheel::TimerEvent;
 using TimerWheel = timerwheel::TimerWheel;
 using std::chrono::system_clock;
@@ -38,7 +38,7 @@ inline void testTimer()
 	int32 count = 0;
 	auto start = clock();
 	cout << "add begin: "<<"   maxtick: "<< maxTick / (60 * 1000) << "minute" << endl;
-	for (int64 i = 1; i <= maxTick; i += 997)
+	/*for (int64 i = 1; i <= maxTick; i += 997)
 	{
 		++count;
 		TimerEvent* event1 = new TimerEvent(i, i, 0, [i, &last, &count]() {
@@ -48,7 +48,7 @@ inline void testTimer()
 			count--;
 		});
 		wheel->addTimer(event1);
-	}
+	}*/
 
 	auto finish = clock();
 	cout << "add end: "<< count << "   "<< (finish - start) / CLOCKS_PER_SEC<<"seconds" << endl;

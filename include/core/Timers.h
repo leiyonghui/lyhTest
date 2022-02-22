@@ -2,41 +2,49 @@
 #include <unordered_map>
 #include <functional>
 #include "FastNode.h"
+#include <assert.h>
 
 using namespace std;
 using int32 = int;
 using int64 = long long;
-using Tick = int64;
+using uint64 = unsigned long long;
+using Tick = uint64;
 
 typedef std::function<void()> TimeoutCallback;
 
-template<class T>
+namespace timerwheel {
+	class TimerWheel;
+};
+class IScheduler;
+class TimerHander;
+class TimerEvent;
+
 class TimerEvent : CFastNode<TimerEvent*>
 {
-	friend Scheduler<T>;
-	friend TimerHander<T>;
+	friend class IScheduler;
+	friend class TimerHander;
+	friend class timerwheel::TimerWheel;
 
 	int64 _id;
-	TimerHander<T>* _hander;
-	Tick _atTick;
+	TimerHander* _hander;
+	Tick _tick;
 	Tick _period;
+	int32 _count;
 	TimeoutCallback _callback;
 public:
-	TimerEvent(int64 id, void* ptr, TimerHander, Tick atTick, Tick period, TimeoutCallback callback) : 
+	TimerEvent(int64 id, TimerHander* ptr, Tick tick, Tick period, int32 count, TimeoutCallback& callback) : 
+	CFastNode<TimerEvent*>(this),
 	_id(id),
 	_hander(ptr),
-	_atTick(atTick),
+	_tick(tick),
 	_period(period), 
-	_callback(std::move(callback)) 
+	_count(count),
+	_callback(std::move(callback))
 	{
-		assert(_hander && _id);
+		//assert(_hander);
 	}
 
-	~TimerEvent()
-	{
-		assert(_hander);
-		//assert(_hander->_timerMap.erase(_id));
-	}
+	~TimerEvent();
 
 	void onTimeout()
 	{
@@ -45,56 +53,30 @@ public:
 	}
 };
 
-template<class T>
 class TimerHander
 {
-	friend TimerEvent<T>;
-	friend Scheduler<T>;
+	friend class TimerEvent;
+	friend class IScheduler;
 
 	int64 _nextId;
-	unordered_map<int64, TimerEvent<T>*> _timerMap;
-	Scheduler<T>* _scheduler;
+	unordered_map<int64, TimerEvent*> _timerMap;
+	IScheduler* _scheduler;
 
 	TimerHander(const TimerHander&) = delete;
 	TimerHander operator=(const TimerHander&) = delete;
 public:
-	TimerHander(Scheduler<T>* scheduler): _nextId(0),_scheduler(scheduler){}
+	TimerHander(IScheduler* IScheduler): _nextId(0), _scheduler(IScheduler){}
 
 	~TimerHander()
 	{
 		cancel();
 	}
 
-	int64 addTimer(Tick delay, Tick duration, TimeoutCallback callback)
-	{
-		int64 id = nextId();
-		auto event = _scheduler->addTimer(id, delay, duration, std::forward(callback));
-		if (event)
-		{
-			_timerMap.insert({id, event});
-			return id;
-		}
-		return 0;
-	}
+	int64 addTimer(Tick delay, Tick duration, int32 count, TimeoutCallback callback);
 
-	bool cancel(int64 id)
-	{
-		auto iter = _timerMap.find(id);
-		if (iter == _timerMap.end())
-		{
-			return false;
-		}
-		_scheduler->delTimer(event);
-	}
+	bool cancel(int64 id);
 
-	void cancel()
-	{
-		auto iter = _timerMap.begin();
-		while (iter != _timerMap.end())
-		{
-			_scheduler->delTimer(iter->first);
-		}
-	}
+	void cancel();
 
 	int64 nextId()
 	{
@@ -105,31 +87,19 @@ public:
 				return _nextId;
 			}
 		}
+		return 0;
 	}
 };
 
-template<class T>
-class Scheduler
+
+class IScheduler
 {
-	T* _cheduler;
 public:
-	Scheduler(T* cheduler): _cheduler(cheduler){}
+	IScheduler(){}
 
-	void update(Tick now)
-	{
-		_cheduler->update(now);
-	}
+	virtual void update(Tick now) = 0;
 
-	TimerEvent* addTimer(int64 id, Tick delay, Tick duration, TimeoutCallback callback)
-	{
-		TimerEvent<T>* event = new TimerEvent<T>(id, delay, duration, std::forward(callback));
-		_cheduler->addTimer(event);
-		return event;
-	}
+	virtual void addTimer(TimerEvent* event) = 0;
 
-	bool delTimer(TimerEvent* event)
-	{
-		_cheduler->delTimer(event);
-		delete event;
-	}
+	virtual void delTimer(TimerEvent* event) = 0;
 };

@@ -32,6 +32,7 @@
     <ClCompile Include="Shared.cpp" />
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="TimerWheel.cpp" />
+    <ClCompile Include="Timers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

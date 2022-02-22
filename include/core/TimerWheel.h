@@ -2,9 +2,11 @@
 #include "FastNode.h"
 #include <functional>
 #include <assert.h>
+//#include "Timers.h"
 
 namespace timerwheel
 {
+	//class TimerEvent;
 	using int32 = int;
 	using int64 = long long;
 	using uint64 = unsigned long long;
@@ -21,7 +23,7 @@ namespace timerwheel
 		TimeoutCallback _callback;
 		int32 _count;
 	public:
-		TimerEvent(int64 id, Tick tick, Tick period, TimeoutCallback callback, int32 count = 0) : 
+		TimerEvent(int64 id, Tick tick, Tick period, TimeoutCallback callback, int32 count = 0) :
 			CFastNode<TimerEvent*>(this),
 			_id(id),
 			_tick(tick),
@@ -34,7 +36,7 @@ namespace timerwheel
 
 		~TimerEvent()
 		{
-			
+
 		}
 
 		void onTimeout()
@@ -48,9 +50,9 @@ namespace timerwheel
 	{
 		friend class TimerWheel;
 
-		TimerEvent _slot;
+		CFastNode<TimerEvent*> _slot;
 	public:
-		TimerSlot() : _slot(0, 0, 0, nullptr)
+		TimerSlot(): _slot(nullptr)
 		{
 
 		}
@@ -62,7 +64,7 @@ namespace timerwheel
 #define WHEEL_MASK 255
 #define SLOT_INDEX(n,i) ((uint64(n) >> (i * 8)) & WHEEL_MASK)
 
-	class TimerWheel
+	class TimerWheel /*: public IScheduler*/
 	{
 		Tick _curTick;
 		Tick _interval;
@@ -70,18 +72,15 @@ namespace timerwheel
 		Tick _lasttime;
 		TimerSlot _slot[SLOT_SIZE][WHEEL_SIZE];
 	public:
-		TimerWheel(Tick interval = 1) : _curTick(0), _interval(interval), _remainder(0), _lasttime(0)
-		{
-
-		}
+		TimerWheel(Tick interval = 1);
 
 		Tick tick() { return _curTick; };
 
-		void addTimer(TimerEvent* event);
+		void addTimer(TimerEvent* event) /*override*/;
 
-		void delTimer(TimerEvent* event);
+		void delTimer(TimerEvent* event) /*override*/;
 
-		void update(Tick now);
+		void update(Tick now) /*override*/;
 
 	private:
 		void _onTimeout(TimerEvent* event);

@@ -1,8 +1,14 @@
-#include "TimerWheel.h"
 #include <iostream>
+#include "TimerWheel.h"
 
 namespace timerwheel
 {
+
+	TimerWheel::TimerWheel(Tick interval) : _curTick(0), _interval(interval), _remainder(0), _lasttime(0)
+	{
+
+	}
+	
 	void TimerWheel::addTimer(TimerEvent* event)
 	{
 		Tick tick = event->_tick - _curTick;
