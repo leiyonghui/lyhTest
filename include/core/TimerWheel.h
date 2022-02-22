@@ -7,7 +7,8 @@ namespace timerwheel
 {
 	using int32 = int;
 	using int64 = long long;
-	using Tick = int64;
+	using uint64 = unsigned long long;
+	using Tick = uint64;
 	typedef std::function<void()> TimeoutCallback;
 
 	class TimerEvent : CFastNode<TimerEvent*>
@@ -18,13 +19,15 @@ namespace timerwheel
 		Tick _tick;
 		Tick _period;
 		TimeoutCallback _callback;
+		int32 _count;
 	public:
-		TimerEvent(int64 id, Tick tick, Tick period, TimeoutCallback callback) : 
+		TimerEvent(int64 id, Tick tick, Tick period, TimeoutCallback callback, int32 count = 0) : 
 			CFastNode<TimerEvent*>(this),
 			_id(id),
 			_tick(tick),
 			_period(period),
-			_callback(std::move(callback))
+			_callback(std::move(callback)),
+			_count(count)
 		{
 
 		}
@@ -57,7 +60,7 @@ namespace timerwheel
 #define BIT_SIZE 8
 #define SLOT_SIZE 8
 #define WHEEL_MASK 255
-#define slot_INDEX(n,i) ((uint64(n) >> ((i-1) * 8)) & WHEEL_MASK)
+#define SLOT_INDEX(n,i) ((uint64(n) >> (i * 8)) & WHEEL_MASK)
 
 	class TimerWheel
 	{
@@ -72,6 +75,8 @@ namespace timerwheel
 
 		}
 
+		Tick tick() { return _curTick; };
+
 		void addTimer(TimerEvent* event);
 
 		void delTimer(TimerEvent* event);
@@ -79,7 +84,9 @@ namespace timerwheel
 		void update(Tick now);
 
 	private:
-		void _relink(TimerEvent* event);
+		void _onTimeout(TimerEvent* event);
+
+		void _addTimer(TimerEvent* event);
 
 		void _updateSlot(int32 i);
 

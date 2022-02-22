@@ -1,4 +1,5 @@
 #include "TimerWheel.h"
+#include <iostream>
 
 namespace timerwheel
 {
@@ -6,16 +7,7 @@ namespace timerwheel
 	{
 		Tick tick = event->_tick - _curTick;
 		assert(tick > 0);
-		int32 slotindex = 0;
-		int32 wheelIndex = 0;
-		while (tick >= WHEEL_SIZE)
-		{
-			slotindex++;
-			tick = tick >> BIT_SIZE;
-		}
-		wheelIndex = tick & WHEEL_MASK;
-		assert(slotindex < SLOT_SIZE && wheelIndex < WHEEL_SIZE);
-		_slot[slotindex][wheelIndex]._slot.pushBack(*event);
+		_addTimer(event);
 	}
 
 	void TimerWheel::delTimer(TimerEvent* event)
@@ -39,7 +31,34 @@ namespace timerwheel
 		}
 	}
 
-	void TimerWheel::_relink(TimerEvent* event)
+	void TimerWheel::_onTimeout(TimerEvent* event)
+	{
+		assert(event->_tick <= _curTick);
+		try
+		{
+			event->onTimeout();
+			if (event->_period > 0 && (event->_count > 1 || !event->_count))
+			{
+				if (event->_count)
+					event->_count--;
+				event->_tick += event->_period;
+				_addTimer(event);
+			}
+			else
+			{
+				delete event;
+			}
+		}
+		catch (std::exception e)
+		{
+			event->leave();
+			delete event;
+
+			std::cout << e.what() << std::endl;
+		}
+	}
+
+	void TimerWheel::_addTimer(TimerEvent* event)
 	{
 		Tick tick = event->_tick - _curTick;
 		assert(tick >= 0);
@@ -50,17 +69,18 @@ namespace timerwheel
 			slotindex++;
 			tick = tick >> BIT_SIZE;
 		}
-		wheelIndex = tick & WHEEL_MASK;
-		assert(slotindex < SLOT_SIZE&& wheelIndex < WHEEL_SIZE);
+		wheelIndex = (tick + SLOT_INDEX(_curTick, slotindex)) & WHEEL_MASK;
+		assert(slotindex < SLOT_SIZE && wheelIndex < WHEEL_SIZE);
 		_slot[slotindex][wheelIndex]._slot.pushBack(*event);
 	}
 
 	void TimerWheel::_updateSlot(int32 i)
 	{
-		int32 index = (_curTick >> (i * BIT_SIZE)) & WHEEL_MASK;
+		int32 index = SLOT_INDEX(_curTick, i);
 		if (index == 0)
 		{
-			_updateSlot(i+1);
+			if (i+1 < SLOT_SIZE)
+				_updateSlot(i+1);
 			return;
 		}
 
@@ -70,7 +90,10 @@ namespace timerwheel
 			auto event = iter->data();
 			iter = iter->next();
 			event->leave();
-			_relink(event);
+			if (event->_tick <= _curTick)
+				_onTimeout(event);
+			else
+				_addTimer(event);
 		}
 	}
 
@@ -87,18 +110,8 @@ namespace timerwheel
 		{
 			auto event = iter->data();
 			iter = iter->next();
-			assert(event->_tick <= _curTick);
-			try
-			{
-				event->onTimeout();
-				event->leave();
-				delete event;
-			}
-			catch (std::exception e)
-			{
-				event->leave();
-				delete event;
-			}
+			event->leave();
+			_onTimeout(event);
 		}
 	}
 

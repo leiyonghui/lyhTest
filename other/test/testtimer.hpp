@@ -20,15 +20,28 @@ inline void testTimer()
 {
 	TimerWheel* wheel = new TimerWheel();
 	
-	int64 maxTick = int64(1) * 10 * 60 * 60 * 1000;
+	uint64 lastTick = 0;
+	TimerEvent* event1 = new TimerEvent(0, 877, 877, [wheel, &lastTick]() {
+		assert(wheel->tick() - lastTick == 877);
+		cout << "duration1  " << (lastTick = wheel->tick()) <<endl;
+	});
+	int32 tickCount = 0;
+	TimerEvent* event2 = new TimerEvent(0, 7, 7, [wheel, &tickCount]() {
+		cout << "duration2  " << wheel->tick() << endl;
+		tickCount++;
+	}, 100);
+	wheel->addTimer(event1);
+	wheel->addTimer(event2);
+
+	int64 maxTick = int64(1) * 1 * 60 * 60 * 1000;
 	int64 last = 0;
 	int32 count = 0;
 	auto start = clock();
 	cout << "add begin: "<<"   maxtick: "<< maxTick / (60 * 1000) << "minute" << endl;
-	for (int64 i = 1; i <= maxTick; i += 331)
+	for (int64 i = 1; i <= maxTick; i += 997)
 	{
 		++count;
-		TimerEvent* event1 = new TimerEvent(i, i, 1, [i, &last, &count]() {
+		TimerEvent* event1 = new TimerEvent(i, i, 0, [i, &last, &count]() {
 			cout << i << endl;
 			assert(last < i);
 			last = i;
@@ -55,7 +68,7 @@ inline void testTimer()
 		Sleep(1);
 		wheel->update(tick);
 	}
-	cout << last<< "  "<<tick<< "  "<<count << endl;
+	cout << last<< "  "<<tick<< "  "<<count<<"  "<< tickCount << endl;
 
 	{
 		// 基于当前系统的当前日期/时间
