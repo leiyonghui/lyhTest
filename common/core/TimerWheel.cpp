@@ -48,11 +48,6 @@ namespace timerwheel
 				if (event->_count)
 					event->_count--;
 				event->_tick += event->_period;
-				std::cout << " eventtick:"<<event->_tick<<"  tick:"<<_curTick<<" count:"<<event->_count << std::endl;
-				if (_curTick == _curTick)
-				{
-
-				}
 				_addTimer(event);
 			}
 			else
