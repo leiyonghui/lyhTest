@@ -48,6 +48,11 @@ namespace timerwheel
 				if (event->_count)
 					event->_count--;
 				event->_tick += event->_period;
+				std::cout << " eventtick:"<<event->_tick<<"  tick:"<<_curTick<<" count:"<<event->_count << std::endl;
+				if (_curTick == _curTick)
+				{
+
+				}
 				_addTimer(event);
 			}
 			else
@@ -67,10 +72,10 @@ namespace timerwheel
 	void TimerWheel::_addTimer(TimerEvent* event)
 	{
 		Tick tick = event->_tick - _curTick;
-		assert(tick >= 0);
+		assert(tick > 0);
 		int32 slotindex = 0;
 		int32 wheelIndex = 0;
-		while (tick >= WHEEL_SIZE)
+		while (tick >> BIT_SIZE)
 		{
 			slotindex++;
 			tick = tick >> BIT_SIZE;
@@ -87,7 +92,6 @@ namespace timerwheel
 		{
 			if (i+1 < SLOT_SIZE)
 				_updateSlot(i+1);
-			return;
 		}
 
 		auto& slot = _slot[i][index]._slot;

@@ -21,9 +21,9 @@ inline void testTimer()
 	TimerWheel* wheel = new TimerWheel();
 	
 	uint64 lastTick = 0;
-	TimerEvent* event1 = new TimerEvent(0, 877, 877, [wheel, &lastTick]() {
+	TimerEvent* event1 = new TimerEvent(0, 877, 877, [wheel, &lastTick ,event1]() {
 		assert(wheel->tick() - lastTick == 877);
-		cout << "duration1  " << (lastTick = wheel->tick()) <<endl;
+		cout << "duration1  " << (lastTick = wheel->tick()) << endl;
 	});
 	int32 tickCount = 0;
 	TimerEvent* event2 = new TimerEvent(0, 7, 7, [wheel, &tickCount]() {
@@ -31,7 +31,7 @@ inline void testTimer()
 		tickCount++;
 	}, 100);
 	wheel->addTimer(event1);
-	wheel->addTimer(event2);
+	//wheel->addTimer(event2);
 
 	int64 maxTick = int64(1) * 1 * 60 * 60 * 1000;
 	int64 last = 0;
