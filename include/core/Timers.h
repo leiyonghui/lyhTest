@@ -51,6 +51,11 @@ public:
 		if (_callback)
 			_callback();
 	}
+
+	Tick tick() 
+	{
+		return _tick;
+	}
 };
 
 class TimerHander

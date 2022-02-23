@@ -4,7 +4,7 @@
 namespace timerwheel
 {
 
-	TimerWheel::TimerWheel(Tick interval) : _curTick(0), _interval(interval), _remainder(0), _lasttime(0)
+	TimerWheel::TimerWheel(Tick interval) : _curTick(0), _interval(interval), _remainder(0), _lasttime(0), _expend(0),_executeCount(0)
 	{
 
 	}
@@ -26,6 +26,11 @@ namespace timerwheel
 	{
 		if (now > _lasttime)
 		{
+#ifdef _DEBUG
+			_expend = 0;
+			_executeCount = 0;
+#endif // _DEBUG
+
 			Tick diff = now - _lasttime + _remainder;
 			_lasttime = now;
 			while (diff >= _interval)
@@ -92,11 +97,19 @@ namespace timerwheel
 		auto& slot = _slot[i][index]._slot;
 		for (auto iter = slot.begin(); iter != slot.end(); )
 		{
+#ifdef _DEBUG
+            ++_expend;
+#endif // _DEBUG
 			auto event = iter->data();
 			iter = iter->next();
 			event->leave();
 			if (event->_tick <= _curTick)
+			{
+#ifdef _DEBUG
+                ++_executeCount;
+#endif // _DEBUG
 				_onTimeout(event);
+			}
 			else
 				_addTimer(event);
 		}
@@ -113,6 +126,11 @@ namespace timerwheel
 		auto& slot = _slot[0][index]._slot;
 		for (auto iter = slot.begin(); iter != slot.end(); )
 		{
+#ifdef _DEBUG
+			++_expend;
+			++_executeCount;
+#endif // _DEBUG
+
 			auto event = iter->data();
 			iter = iter->next();
 			event->leave();

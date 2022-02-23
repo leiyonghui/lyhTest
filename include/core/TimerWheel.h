@@ -44,6 +44,8 @@ namespace timerwheel
 			if (_callback)
 				_callback();
 		}
+
+		Tick tick() { return _tick; };
 	};
 
 	class TimerSlot
@@ -70,6 +72,8 @@ namespace timerwheel
 		Tick _interval;
 		Tick _remainder;
 		Tick _lasttime;
+		uint64 _expend;
+		uint64 _executeCount;
 		TimerSlot _slot[SLOT_SIZE][WHEEL_SIZE];
 	public:
 		TimerWheel(Tick interval = 1);
@@ -81,6 +85,10 @@ namespace timerwheel
 		void delTimer(TimerEvent* event) /*override*/;
 
 		void update(Tick now) /*override*/;
+
+		uint64 expend() { return _expend; };
+
+		uint64 executeCount() { return _executeCount; };
 
 	private:
 		void _onTimeout(TimerEvent* event);
