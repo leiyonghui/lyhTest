@@ -6,59 +6,59 @@
 
 namespace timerwheel
 {
-	//class TimerEvent;
-	using int32 = int;
-	using int64 = long long;
-	using uint64 = unsigned long long;
-	using Tick = uint64;
-	typedef std::function<void()> TimeoutCallback;
+    //class TimerEvent;
+    using int32 = int;
+    using int64 = long long;
+    using uint64 = unsigned long long;
+    using Tick = uint64;
+    typedef std::function<void()> TimeoutCallback;
 
-	class TimerEvent : CFastNode<TimerEvent*>
-	{
-		friend class TimerWheel;
+    class TimerEvent : CFastNode<TimerEvent*>
+    {
+        friend class TimerWheel;
 
-		int64 _id;
-		Tick _tick;
-		Tick _period;
-		TimeoutCallback _callback;
-		int32 _count;
-	public:
-		TimerEvent(int64 id, Tick tick, Tick period, TimeoutCallback callback, int32 count = 0) :
-			CFastNode<TimerEvent*>(this),
-			_id(id),
-			_tick(tick),
-			_period(period),
-			_callback(std::move(callback)),
-			_count(count)
-		{
+        int64 _id;
+        Tick _tick;
+        Tick _period;
+        TimeoutCallback _callback;
+        int32 _count;
+    public:
+        TimerEvent(int64 id, Tick tick, Tick period, TimeoutCallback callback, int32 count = 0) :
+            CFastNode<TimerEvent*>(this),
+            _id(id),
+            _tick(tick),
+            _period(period),
+            _callback(std::move(callback)),
+            _count(count)
+        {
 
-		}
+        }
 
-		~TimerEvent()
-		{
+        ~TimerEvent()
+        {
 
-		}
+        }
 
-		void onTimeout()
-		{
-			if (_callback)
-				_callback();
-		}
+        void onTimeout()
+        {
+            if (_callback)
+                _callback();
+        }
 
-		Tick tick() { return _tick; };
-	};
+        Tick tick() { return _tick; };
+    };
 
-	class TimerSlot
-	{
-		friend class TimerWheel;
+    class TimerSlot
+    {
+        friend class TimerWheel;
 
-		CFastNode<TimerEvent*> _slot;
-	public:
-		TimerSlot(): _slot(nullptr)
-		{
+        CFastNode<TimerEvent*> _slot;
+    public:
+        TimerSlot(): _slot(nullptr)
+        {
 
-		}
-	};
+        }
+    };
 
 #define WHEEL_SIZE 256
 #define BIT_SIZE 8
@@ -66,37 +66,37 @@ namespace timerwheel
 #define WHEEL_MASK 255
 #define SLOT_INDEX(n,i) ((uint64(n) >> (i * 8)) & WHEEL_MASK)
 
-	class TimerWheel /*: public IScheduler*/
-	{
-		Tick _curTick;
-		Tick _interval;
-		Tick _remainder;
-		Tick _lasttime;
-		uint64 _expend;
-		uint64 _executeCount;
-		TimerSlot _slot[SLOT_SIZE][WHEEL_SIZE];
-	public:
-		TimerWheel(Tick interval = 1);
+    class TimerWheel /*: public IScheduler*/
+    {
+        Tick _curTick;
+        Tick _interval;
+        Tick _remainder;
+        Tick _lasttime;
+        uint64 _expend;
+        uint64 _executeCount;
+        TimerSlot _slot[SLOT_SIZE][WHEEL_SIZE];
+    public:
+        TimerWheel(Tick interval = 1);
 
-		Tick tick() { return _curTick; };
+        Tick tick() { return _curTick; };
 
-		void addTimer(TimerEvent* event) /*override*/;
+        void addTimer(TimerEvent* event) /*override*/;
 
-		void delTimer(TimerEvent* event) /*override*/;
+        void delTimer(TimerEvent* event) /*override*/;
 
-		void update(Tick now) /*override*/;
+        void update(Tick now) /*override*/;
 
-		uint64 expend() { return _expend; };
+        uint64 expend() { return _expend; };
 
-		uint64 executeCount() { return _executeCount; };
+        uint64 executeCount() { return _executeCount; };
 
-	private:
-		void _onTimeout(TimerEvent* event);
+    private:
+        void _onTimeout(TimerEvent* event);
 
-		void _addTimer(TimerEvent* event);
+        void _addTimer(TimerEvent* event);
 
-		void _updateSlot(int32 i);
+        void _updateSlot(int32 i);
 
-		void _update();
-	};
+        void _update();
+    };
 }
