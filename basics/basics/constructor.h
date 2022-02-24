@@ -1,9 +1,19 @@
 #pragma once
 #include "core/types.h"
-using namespace core;
+#include <iostream>
 
-class CConstructor
+using core::int32;
+using std::cout;
+using std::endl;
+
+void testConstructor();
+
+namespace problem1
 {
-public:
-	CConstructor(int32 a, int32 b);
+    void problem1();
 };
+
+namespace problem2
+{
+    void problem2();
+}

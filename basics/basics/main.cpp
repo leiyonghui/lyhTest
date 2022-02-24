@@ -1,43 +1,38 @@
 #include<atomic>                                                                
 #include <stdio.h>
-using namespace std;
+#include <iostream>
+#include "constructor.h"
+#include "lambda.h"
+#include <chrono>
 
-atomic<int> a;
-int j;
+
+//using namespace std;
+//using namespace std::chrono;
+//using namespace std::literals;
 
 class AA {
 public:
-    AA(int aa = 0):a(aa) {
-
-    }
-
-    operator int() {
-        return a;
-    }
-
-    ~ AA(){
-
-    }
-public:
-    int a;
+    int32 aa;
+    AA(int32 a): aa(a){}
 };
 
-
-void testA(int a)
+namespace core
 {
-    printf("%d", a);
-}
+    AA operator"" _s(unsigned long long  a) {
+        return AA(a);
+    };
 
+    AA BB()
+    {
+        return AA(1);
+    }
+}
 int main()
 {
-    int n;
-
-    a.store(1, memory_order_acquire);
-    n = j;
-
-    {
-        AA* ta = new AA();
-        testA(*ta);
-    }
+    //testConstructor();
+    auto a = core::BB();
+    cout << a.aa << endl;
+    testLambad();
+    system("pause");
     return 0;
 }
