@@ -34,5 +34,9 @@ namespace problem1
 
 namespace problem2
 {
-    
+
+    void problem2()
+    {
+
+    }
 }

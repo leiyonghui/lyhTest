@@ -21,12 +21,14 @@
   <ItemGroup>
     <ClCompile Include="byte.cpp" />
     <ClCompile Include="constructor.cpp" />
+    <ClCompile Include="lambda.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="byte.h" />
     <ClInclude Include="constructor.h" />
+    <ClInclude Include="lambda.h" />
     <ClInclude Include="object.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
