@@ -12,5 +12,6 @@
     <ClInclude Include="constructor.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="lambda.h" />
+    <ClInclude Include="operation.h" />
   </ItemGroup>
 </Project>

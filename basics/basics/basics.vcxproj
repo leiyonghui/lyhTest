@@ -30,6 +30,7 @@
     <ClInclude Include="constructor.h" />
     <ClInclude Include="lambda.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="operation.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -5,7 +5,9 @@
 using namespace std;
 using namespace core;
 
-//不推荐使用'=’默认捕获
+//1.不推荐使用默认捕获
+// & 默认按引用捕获可能导致引用悬挂
+// 默认按值捕获容易受野指针影响（特别是 this 指针），并且会误导我们，认为 lambda是自给自足的。
 TEST(problem1)
 {
     static int32 aa = 1;
@@ -27,6 +29,13 @@ TEST(problem1)
     fun2();
     auto fun3 = fun1();
     fun3();
+}
+
+//2.使用 C++14 的初始化捕获来移动对象至闭包。
+// C++11 通过手写类或 std::bind 来模拟初始化捕获。
+TEST(problem2)
+{
+
 }
 
 void testLambad()
