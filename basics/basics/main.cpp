@@ -1,38 +1,20 @@
-#include<atomic>                                                                
+#include <atomic>                                                                
 #include <stdio.h>
 #include <iostream>
+#include <chrono>
 #include "constructor.h"
 #include "lambda.h"
-#include <chrono>
+#include "Thread.h"
 
 
 //using namespace std;
 //using namespace std::chrono;
 //using namespace std::literals;
 
-class AA {
-public:
-    int32 aa;
-    AA(int32 a): aa(a){}
-};
 
-namespace core
-{
-    AA operator"" _s(unsigned long long  a) {
-        return AA(a);
-    };
-
-    AA BB()
-    {
-        return AA(1);
-    }
-}
 int main()
 {
-    //testConstructor();
-    auto a = core::BB();
-    cout << a.aa << endl;
-    testLambad();
+    testThread();
     system("pause");
     return 0;
 }
