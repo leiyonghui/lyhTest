@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="SharedPrt.h" />
     <ClInclude Include="..\..\include\core\FastNode.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -26,6 +25,9 @@
     <ClInclude Include="..\..\include\core\TimerWheel.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\RingBuff.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="List.cpp" />
@@ -33,6 +35,7 @@
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="TimerWheel.cpp" />
     <ClCompile Include="Timers.cpp" />
+    <ClCompile Include="..\..\include\core\RingBuff.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

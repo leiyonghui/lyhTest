@@ -10,6 +10,7 @@ using namespace std;
 //2.std::thread对象不可复制
 TEST(example1)
 {
+    constexpr auto v = 10'000'000;
     std::thread a([] {
         while(true)
             cout<< 10'000'000 << endl;

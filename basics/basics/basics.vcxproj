@@ -24,6 +24,7 @@
     <ClCompile Include="lambda.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="StdPtr.cpp" />
     <ClCompile Include="Thread.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -32,6 +33,7 @@
     <ClInclude Include="lambda.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="operation.h" />
+    <ClInclude Include="StdPtr.h" />
     <ClInclude Include="Thread.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
