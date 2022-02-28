@@ -59,16 +59,20 @@ namespace bf
         std::vector<str> vec;
         std::vector<str> rvec;
         //rvec.resize(strCount);
+        int32 count = 0;
         for (int32 i=0; i<strCount; i++)
         {
             auto len = Random(3000);
+            count += len;
             vec.emplace_back(str(generatestr(len), len));
             rvec.emplace_back(str(generatestr(len), len));
         }
-        int32 r = 0, w = 0;
+        cout << count << endl;
+        int32 r = 0, w = 0, mx = 0, mxc = 0;
+        uint32 maxcap = 0, maxs = 0;
         while(r < w || w < strCount)
         {
-            if (Random(10) %2 && r < w || w >= strCount)//r 
+            if (Random(100) <= 60 && r < w || w >= strCount)//r 
             {
                 int32 len = vec[r].len;
                 buff.read(rvec[r].c, len);
@@ -79,7 +83,15 @@ namespace bf
                 buff.write(vec[w].c, vec[w].len);
                 w++;
             }
+            mx = max(mx, w-r);
+            if (buff.size()) 
+            {
+                mxc = max(mxc, int32(buff.capacity() - buff.size()));
+            }
+            maxcap = max(maxcap, buff.capacity());
+            maxs = max(maxs, buff.size());
         }
+        cout << "mx:"<<mx << "  mxc:"<<mxc<< "  maxcap:"<< maxcap << "  maxs:"<< maxs << endl;
         for (int32 i = 0; i < strCount; i++)
         {
             //vec[i].pr();
