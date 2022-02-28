@@ -145,9 +145,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="testBuff.cpp" />
     <ClCompile Include="testtimer.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers.h" />
     <ClInclude Include="testlist.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
