@@ -16,7 +16,12 @@ using namespace core;
 
 int main()
 {
-    testThread();
+    //testThread();
+    char* c = new char;
+    auto b = c + 1;
+    void* d = new char;
+    //auto e = d + 1;
+    cout << c + 1 << "   "<< sizeof(void*) << endl;;
     system("pause");
     return 0;
 }
