@@ -36,11 +36,14 @@ int32 echoClient(char* ip, int32 port)
 
         if (!strcmp(message, "q\n") || !strcmp(message, "Q\n"))
             break;
-
+        if (!strcmp(message, "!\n"))
+        {
+            assert(false);
+        }
         write(sock, message, strlen(message));
-        str_len = read(sock, message, BUF_SIZE - 1);
-        message[str_len] = 0;
-        printf("Message from server: %s", message);
+        //str_len = read(sock, message, BUF_SIZE - 1);
+        //message[str_len] = 0;
+        //printf("Message from server: %s", message);
     }
 
     close(sock);

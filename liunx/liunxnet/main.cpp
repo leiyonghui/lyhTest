@@ -1,12 +1,35 @@
 #include "headers.h"
+#include <iostream>
+
+using namespace std;
 
 int main(int argc, char ** argv)
 {
-    if (argc == 2) {
-        echoEpollServ(atoi(argv[1]));
+    char* ip;
+    int port;
+    int iss = 0;
+    if (argc == 1)
+    {
+        cin >> iss;
     }
-    if (argc == 3) {
-        echoClient(argv[1], atoi(argv[2]));
+    if (argc == 2 || iss == 1) {
+        if (iss)
+            cin >> port;
+        else
+            port = atoi(argv[1]);
+        echoEpollServ(port);
+    }
+    if (argc == 3 || iss == 2) {
+        if (iss)
+        {
+            cin >> ip >> port;
+        }
+        else
+        {
+            ip = argv[1];
+		    port = atoi(argv[2]);
+        }
+        echoClient(ip, port);
     }
     return 0;
 }
