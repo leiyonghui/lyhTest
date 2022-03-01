@@ -1,11 +1,10 @@
 #pragma once
-#include "core/types.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "Configs.h"
 
-using core::int32;
 
 inline void error_handling(char* message)
 {
