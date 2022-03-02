@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+#include<iostream>
+using namespace std;
 
 #define BUF_SIZE 1024
 
@@ -40,10 +42,18 @@ int32 echoClient(char* ip, int32 port)
         {
             assert(false);
         }
+		if (!strcmp(message, "shut2\n"))
+		{
+			cout << "do shut2" << endl;
+			if (::shutdown(sock, SHUT_RD))//
+			{
+				cout << "shutdown error" << endl;
+			}
+		}
         write(sock, message, strlen(message));
-        //str_len = read(sock, message, BUF_SIZE - 1);
-        //message[str_len] = 0;
-        //printf("Message from server: %s", message);
+        str_len = read(sock, message, BUF_SIZE - 1);
+        message[str_len] = 0;
+        printf("Message from server: %d , %s", str_len, message);
     }
 
     close(sock);
