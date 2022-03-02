@@ -1,2 +1,2 @@
 # lyhTest
-Learn AND Test
+Study AND Test
