@@ -71,6 +71,8 @@ int32 echoEpollServ(int32 port)
     event.events = EPOLLIN;
     event.data.fd = serv_sock;
     epoll_ctl(epfd, EPOLL_CTL_ADD, serv_sock, &event);
+
+
     cout << "--start--"<< port << endl;
     while (1)
     {
@@ -83,6 +85,7 @@ int32 echoEpollServ(int32 port)
 
         for (i = 0; i < event_cnt; i++)
         {
+            memset(buf, 0, BUF_SIZE);
             const auto& ev = ep_events[i];
             cout << endl;
             printEvent(ep_events[i].data.fd, ev.events);
@@ -91,14 +94,14 @@ int32 echoEpollServ(int32 port)
                 adr_sz = sizeof(clnt_adr);
                 clnt_sock =
                     accept(serv_sock, (struct sockaddr*)&clnt_adr, &adr_sz);
-                event.events = EPOLLIN;
+                event.events = EPOLLIN | EPOLLOUT;
                 event.data.fd = clnt_sock;
                 epoll_ctl(epfd, EPOLL_CTL_ADD, clnt_sock, &event);
                 printf("connected client: %d \n", clnt_sock);
             }
             else if(ev.events & EPOLLIN)
             {
-                str_len = read(ep_events[i].data.fd, buf, BUF_SIZE);
+                str_len = read(ep_events[i].data.fd, buf, 5);
                 if (str_len == 0)    // close request!
                 {
                     epoll_ctl(
@@ -108,7 +111,34 @@ int32 echoEpollServ(int32 port)
                 }
                 else
                 {
-                    write(ep_events[i].data.fd, buf, str_len);    // echo!
+                    cout << "buff: " << buf << endl;
+                    if (!strcmp(buf, "shut1"))
+                    {
+                        cout << "do shut1" << endl;
+						if (::shutdown(ev.data.fd, SHUT_WR))//发送F包。如果客户端还写，event还是IN。并且自己write会出现pipe(就是发送不出去)
+						{
+                            cout << "shutdown error" << endl;
+						}
+                    }else if (!strcmp(buf, "shut2"))
+					{
+						cout << "do shut2" << endl;
+						if (::shutdown(ev.data.fd, SHUT_RD))//发送F包。shut read后会epoll出IN,然后read=0关闭
+						{
+							cout << "shutdown error" << endl;
+						}
+					}
+					else if (!strcmp(buf, "shut3"))
+					{
+						cout << "do shut3" << endl;
+						if (::shutdown(ev.data.fd, SHUT_RDWR))//发送F包。shut read后会epoll出IN HUP,然后会触发read=0关闭（如果接受队列有值则会read触发PIPE 然后下次会read=0）
+						{
+							cout << "shutdown error" << endl;
+						}
+					}
+                    else
+                    {
+                        write(ep_events[i].data.fd, buf, str_len);    // echo!
+                    }
                 }
             }
             else if (ev.events & EPOLLOUT)
@@ -121,3 +151,12 @@ int32 echoEpollServ(int32 port)
     close(epfd);
     return 0;
 }
+/*
+1:接收队列有值，而且这时候对方发送F结束包，过来，此时接收队列会多一个值， 此时epoll是IN。如果这时候write的话下次会出现ERR 和 HUP
+ps: 会先读完所有值后再read=0。
+
+2：ERR的时候应该 readcallback 和 writecallback?
+
+3: 接收队列有值还有fin包, epoll还会 OUT 吗？会。所以这些event都是独立的？在没读到0关闭socket的时候如果还write就会brokepipe，当然服务器第一次往发送了fin的客户端（服务器已经收到fin包）
+发东西就会收到客户端的RST包。后面再发就是PIPE
+*/
