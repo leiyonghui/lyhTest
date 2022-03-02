@@ -36,6 +36,12 @@ void printEvent(int32 fd, int32 ev)
     printf("%s\n", str.c_str());
 }
 
+void si(int p)
+{
+    cout << "====PIPE" << endl;
+}
+
+
 int32 echoEpollServ(int32 port)
 {
     int serv_sock, clnt_sock;
@@ -94,9 +100,10 @@ int32 echoEpollServ(int32 port)
                 adr_sz = sizeof(clnt_adr);
                 clnt_sock =
                     accept(serv_sock, (struct sockaddr*)&clnt_adr, &adr_sz);
-                event.events = EPOLLIN | EPOLLOUT;
+                event.events = EPOLLIN /*| EPOLLOUT*/;
                 event.data.fd = clnt_sock;
                 epoll_ctl(epfd, EPOLL_CTL_ADD, clnt_sock, &event);
+                setBuffSize(clnt_sock, 100, 10);
                 printf("connected client: %d \n", clnt_sock);
             }
             else if(ev.events & EPOLLIN)
@@ -152,11 +159,15 @@ int32 echoEpollServ(int32 port)
     return 0;
 }
 /*
-1:接收队列有值，而且这时候对方发送F结束包，过来，此时接收队列会多一个值， 此时epoll是IN。如果这时候write的话下次会出现ERR 和 HUP
+1:接收队列有值，而且这时候对方发送Fin包过来，此时接收队列会多一个值， 此时epoll是IN。如果这时候write的话下次会出现ERR 和 HUP
 ps: 会先读完所有值后再read=0。
 
 2：ERR的时候应该 readcallback 和 writecallback?
 
-3: 接收队列有值还有fin包, epoll还会 OUT 吗？会。所以这些event都是独立的？在没读到0关闭socket的时候如果还write就会brokepipe，当然服务器第一次往发送了fin的客户端（服务器已经收到fin包）
-发东西就会收到客户端的RST包。后面再发就是PIPE
+3: 接收队列有值还有fin包, epoll还会 OUT 吗？会。所以这些event都是独立的？在没读到0关闭socket的时候如果还write就会brokepipe，
+当然服务器第一次往发送了fin的客户端（服务器已经收到fin包）发东西就会收到客户端的RST包。
+后面再发就是PIPE（通过在accpetor和in的地方断点重现）
+
+4: 客户端发送队列还有值然后关闭客户端， 此时队列的值会发送过去吗？不会，而是直接发送fin包（虽然发送队列多了个值）
+然后操作系统关闭连接（后面netstat已经看不到连接了），虽然服务器socket还是可以读值。
 */
