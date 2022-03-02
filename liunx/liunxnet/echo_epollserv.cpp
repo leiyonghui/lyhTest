@@ -8,6 +8,7 @@
 #include <sys/epoll.h>
 #include <iostream>
 #include <sstream>
+#include <signal.h>
 
 using namespace std;
 
@@ -36,8 +37,15 @@ void printEvent(int32 fd, int32 ev)
     printf("%s\n", str.c_str());
 }
 
+void si(int p)
+{
+    cout << "-====" << endl;
+}
+
 int32 echoEpollServ(int32 port)
 {
+    signal(SIGPIPE, si);
+  
     int serv_sock, clnt_sock;
     struct sockaddr_in serv_adr, clnt_adr;
     socklen_t adr_sz;
@@ -99,6 +107,7 @@ int32 echoEpollServ(int32 port)
             else if(ev.events & EPOLLIN)
             {
                 str_len = read(ep_events[i].data.fd, buf, BUF_SIZE);
+                cout << " -- in:" << str_len << endl;
                 if (str_len == 0)    // close request!
                 {
                     epoll_ctl(
@@ -106,14 +115,18 @@ int32 echoEpollServ(int32 port)
                     close(ep_events[i].data.fd);
                     printf("closed client: %d \n", ep_events[i].data.fd);
                 }
-                else
+                else if(str_len > 0)
                 {
                     write(ep_events[i].data.fd, buf, str_len);    // echo!
+                }
+                else 
+                {
+                    write(ep_events[i].data.fd, "122", 3);
+					cout << "errno: " << errno << endl;
                 }
             }
             else if (ev.events & EPOLLOUT)
             {
-
             }
         }
     }

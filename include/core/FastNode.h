@@ -83,7 +83,7 @@ public:
     void popFront() {
         if (!empty()) {
            front().leave();
-       }
+        }
     }
 
     void popBack() {
