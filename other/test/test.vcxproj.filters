@@ -3,8 +3,10 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="testtimer.hpp" />
+    <ClCompile Include="testBuff.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="testlist.hpp" />
+    <ClInclude Include="headers.h" />
   </ItemGroup>
 </Project>
