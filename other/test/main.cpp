@@ -1,11 +1,11 @@
 
 #include <iostream>
 #include <windows.h>
+#include <memory>
+#include <string.h>
 #include "testlist.hpp"
 #include "testtimer.hpp"
-#include <memory>
 #include "headers.h"
-#include <string.h>
 
 using namespace std;
 
