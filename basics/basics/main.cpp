@@ -8,6 +8,7 @@
 #include <memory>
 #include "core/Types.h"
 #include "destructor.h"
+#include "StdPtr.h"
 
 using namespace core;
 //using namespace std;
@@ -18,7 +19,8 @@ using namespace core;
 int main()
 {
 	//testDestructor();
-	testThread();
+	//testThread();
+	testShare();
     system("pause");
     return 0;
 }
