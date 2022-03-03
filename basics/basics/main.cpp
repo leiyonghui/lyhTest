@@ -7,6 +7,8 @@
 #include "Thread.h"
 #include <memory>
 #include "core/Types.h"
+#include "destructor.h"
+#include "StdPtr.h"
 
 using namespace core;
 //using namespace std;
@@ -16,12 +18,9 @@ using namespace core;
 
 int main()
 {
-    //testThread();
-    char* c = new char;
-    auto b = c + 1;
-    void* d = new char;
-    //auto e = d + 1;
-    cout << c + 1 << "   "<< sizeof(void*) << endl;;
+	//testDestructor();
+	//testThread();
+	testShare();
     system("pause");
     return 0;
 }
