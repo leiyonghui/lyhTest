@@ -8,6 +8,7 @@
     <ClCompile Include="lambda.cpp" />
     <ClCompile Include="Thread.cpp" />
     <ClCompile Include="StdPtr.cpp" />
+    <ClCompile Include="destructor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="byte.h" />
@@ -17,5 +18,6 @@
     <ClInclude Include="operation.h" />
     <ClInclude Include="Thread.h" />
     <ClInclude Include="StdPtr.h" />
+    <ClInclude Include="destructor.h" />
   </ItemGroup>
 </Project>
