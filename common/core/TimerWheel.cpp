@@ -57,13 +57,12 @@ namespace timerwheel
             }
             else
             {
-                delete event;
+                _delTimer(event);
             }
         }
         catch (std::exception e)
         {
-            event->leave();
-            delete event;
+            _delTimer(event);
 
             std::cout << e.what() << std::endl;
         }
@@ -83,6 +82,11 @@ namespace timerwheel
         wheelIndex = (tick + SLOT_INDEX(_curTick, slotindex)) & WHEEL_MASK;
         assert(slotindex < SLOT_SIZE && wheelIndex < WHEEL_SIZE);
         _slot[slotindex][wheelIndex]._slot.pushBack(*event);
+    }
+
+    void TimerWheel::_delTimer(TimerEvent* event)
+    {
+        delete event;
     }
 
     void TimerWheel::_updateSlot(int32 i)

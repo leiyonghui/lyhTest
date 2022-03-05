@@ -2,8 +2,9 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="testtimer.hpp" />
+    <ClCompile Include="testtimer.cpp" />
     <ClCompile Include="testBuff.cpp" />
+    <ClCompile Include="testchrono.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="testlist.hpp" />

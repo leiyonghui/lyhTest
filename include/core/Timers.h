@@ -1,10 +1,11 @@
 #pragma once
-#include <unordered_map>
+//#include <unordered_map>
 #include <functional>
 #include "FastNode.h"
 #include <assert.h>
+#include <map>
+#include <chrono>
 
-using namespace std;
 using int32 = int;
 using int64 = long long;
 using uint64 = unsigned long long;
@@ -32,7 +33,7 @@ class TimerEvent : CFastNode<TimerEvent*>
 	int32 _count;
 	TimeoutCallback _callback;
 public:
-	TimerEvent(int64 id, TimerHander* ptr, Tick tick, Tick period, int32 count, TimeoutCallback& callback) : 
+	TimerEvent(int64 id, TimerHander* ptr, Tick tick, Tick period, int32 count, TimeoutCallback&& callback) : 
 	CFastNode<TimerEvent*>(this),
 	_id(id),
 	_hander(ptr),
@@ -61,10 +62,13 @@ public:
 class TimerHander
 {
 	friend class TimerEvent;
-	friend class IScheduler;
+	friend class timerwheel::TimerWheel;
+
+	using Duration = std::chrono::milliseconds;
+	using Datetime = std::chrono::system_clock::time_point;
 
 	int64 _nextId;
-	unordered_map<int64, TimerEvent*> _timerMap;
+	std::map<int64, TimerEvent*> _timerMap;
 	IScheduler* _scheduler;
 
 	TimerHander(const TimerHander&) = delete;
@@ -77,7 +81,11 @@ public:
 		cancel();
 	}
 
-	int64 addTimer(Tick delay, Tick duration, int32 count, TimeoutCallback callback);
+	int64 addTimer(Tick delay, Tick duration, int32 count, TimeoutCallback&& callback);
+
+	int64 addTimer(Duration delay, Duration duration, int32 count, TimeoutCallback&& callback);
+
+	int64 addTimer(Datetime time, Duration duration, int32 count, TimeoutCallback&& callback);
 
 	bool cancel(int64 id);
 
@@ -97,10 +105,12 @@ public:
 };
 
 
-class IScheduler
+class IScheduler//implement timerwheel or heap
 {
 public:
 	IScheduler(){}
+
+	virtual Tick tick() = 0;
 
 	virtual void update(Tick now) = 0;
 

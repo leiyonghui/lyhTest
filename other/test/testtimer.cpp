@@ -1,7 +1,9 @@
 #pragma once
 
+#include "core/TimeHelp.h"
+#include "core/Timers.h"
 #include "core/TimerWheel.h"
-#include "core/types.h"
+#include "core/Types.h"
 #include <iostream>
 #include <assert.h>
 #include <windows.h>
@@ -14,13 +16,13 @@ using namespace core;
 using namespace std;
 
 using Tick = unsigned long long;
-using TimerEvent = timerwheel::TimerEvent;
 using TimerWheel = timerwheel::TimerWheel;
 using std::chrono::system_clock;
+using namespace std::literals;
 
 inline void testTimer()
 {
-    int32 id = 0;
+    int64 id = 0;
     std::map<int32, TimerEvent*> Map;
     TimerWheel* wheel = new TimerWheel();
     
@@ -29,25 +31,25 @@ inline void testTimer()
     cout << "add begin: " << "   maxtick: " << maxTick / (60 * 1000) << "minute" << endl;
 
     uint64 lastTick = 0;
-    TimerEvent* event1 = new TimerEvent(++id, 877, 877, [wheel, id, &lastTick, &Map]() {
+    TimerEvent* event1 = new TimerEvent(++id, nullptr, uint64(887), uint64(887), 1, [wheel, id, &lastTick, &Map]() {
         auto event = Map[id];
         assert(lastTick <= event->tick());
         lastTick = event->tick();
     });
     Map[id] = event1;
-    TimerEvent* event2 = new TimerEvent(++id, 7, 7, [wheel, &Map, id, &lastTick]() {
+    TimerEvent* event2 = new TimerEvent(++id, NULL, 7, 7, 100, [wheel, &Map, id, &lastTick]() {
         //cout << "duration2  " << wheel->tick() << endl;
         auto event = Map[id];
         assert(lastTick <= event->tick());
         lastTick = event->tick();
-    }, 100);
+    });
     Map[id] = event2;
     wheel->addTimer(event1);
     wheel->addTimer(event2);
 
     for (int32 i = 1; i < 12000; i+= 347)
     {
-        TimerEvent* event = new TimerEvent(++id, i, i, [wheel, i, id, &Map, &lastTick]() {
+        TimerEvent* event = new TimerEvent(++id, NULL, i, i, 1, [wheel, i, id, &Map, &lastTick]() {
             
             auto event = Map[id];
             assert(lastTick <= event->tick());
@@ -61,7 +63,7 @@ inline void testTimer()
     int64 last = 0;
     for (int64 i = 1; i <= maxTick; i += 997)
     {
-        TimerEvent* event1 = new TimerEvent(++id, i, 0, [i, &last, id, &Map, &lastTick]() {
+        TimerEvent* event1 = new TimerEvent(++id, NULL, i, 0, 1, [i, &last, id, &Map, &lastTick]() {
 
             assert(i - last == 997 || i == 1);
             last = i;
@@ -122,4 +124,38 @@ inline void testTimer()
         char* dt = ctime(&now);
         cout << dt << endl;
     }
+}
+
+void NOW(string str)
+{
+    std::cout << str <<" time:"<< TimeHelp::TimeToString(TimeHelp::now())<< "   clock:"<< TimeHelp::ns2ms(TimeHelp::clock()).count() << endl;
+}
+
+void testTimer2()
+{
+    TimerWheel* wheel = new TimerWheel();
+    TimerHander* hander = new TimerHander(wheel);
+
+    NOW("start");
+
+    CheckTime check;
+    check.CheckBegin();
+
+    auto now = system_clock::now();
+    hander->addTimer(now + 100ms, 1000ms, 5, []() {
+        NOW("time1");
+    });
+
+    int32 tick = 0, maxTick = 1000 * 60;
+    chrono::milliseconds last = TimeHelp::clock_ms();
+    while (++tick <= maxTick)
+    {
+        Sleep(1);
+        auto now = TimeHelp::clock_ms();
+        auto tickNow = now - last;
+        last = now;
+        wheel->update(tickNow.count());
+    }
+
+    check.CheckPoint("1");
 }
