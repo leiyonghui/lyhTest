@@ -146,7 +146,8 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="testBuff.cpp" />
-    <ClCompile Include="testtimer.hpp" />
+    <ClCompile Include="testchrono.cpp" />
+    <ClCompile Include="testtimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers.h" />

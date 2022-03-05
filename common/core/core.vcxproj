@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\core\FastNode.h" />
     <ClInclude Include="..\..\include\core\RingBuff.h" />
+    <ClInclude Include="..\..\include\core\TimeHelp.h" />
     <ClInclude Include="..\..\include\core\Timers.h" />
     <ClInclude Include="..\..\include\core\List.h" />
     <ClInclude Include="..\..\include\core\SharedPrt.h" />
@@ -30,9 +31,10 @@
     <ClInclude Include="..\..\include\core\Vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\include\core\RingBuff.cpp" />
     <ClCompile Include="List.cpp" />
+    <ClCompile Include="RingBuff.cpp" />
     <ClCompile Include="Shared.cpp" />
+    <ClCompile Include="TimeHelp.cpp" />
     <ClCompile Include="Timers.cpp" />
     <ClCompile Include="TimerWheel.cpp" />
     <ClCompile Include="Vector.cpp" />
@@ -109,7 +111,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>

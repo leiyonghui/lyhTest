@@ -28,6 +28,9 @@
     <ClInclude Include="..\..\include\core\RingBuff.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\core\TimeHelp.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="List.cpp" />
@@ -35,7 +38,8 @@
     <ClCompile Include="Vector.cpp" />
     <ClCompile Include="TimerWheel.cpp" />
     <ClCompile Include="Timers.cpp" />
-    <ClCompile Include="..\..\include\core\RingBuff.cpp" />
+    <ClCompile Include="RingBuff.cpp" />
+    <ClCompile Include="TimeHelp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
