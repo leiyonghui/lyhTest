@@ -19,5 +19,6 @@
     <ClInclude Include="Thread.h" />
     <ClInclude Include="StdPtr.h" />
     <ClInclude Include="destructor.h" />
+    <ClInclude Include="headers.h" />
   </ItemGroup>
 </Project>

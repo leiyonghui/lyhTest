@@ -32,6 +32,7 @@
     <ClInclude Include="byte.h" />
     <ClInclude Include="constructor.h" />
     <ClInclude Include="destructor.h" />
+    <ClInclude Include="headers.h" />
     <ClInclude Include="lambda.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="operation.h" />
