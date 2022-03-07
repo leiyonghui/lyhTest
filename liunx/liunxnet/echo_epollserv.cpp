@@ -117,7 +117,7 @@ int32 echoEpollServ(int32 port)
                 {
                     epoll_ctl(
                         epfd, EPOLL_CTL_DEL, ep_events[i].data.fd, NULL);
-                    close(ep_events[i].data.fd);
+                    //close(ep_events[i].data.fd);
                     printf("closed client: %d \n", ep_events[i].data.fd);
                 }
                 else if(str_len > 0)
@@ -148,7 +148,7 @@ int32 echoEpollServ(int32 port)
 					}
                     else
                     {
-                        write(ep_events[i].data.fd, buf, str_len);    // echo!
+                        //write(ep_events[i].data.fd, buf, str_len);    // echo!
                     }
                 }
                 else 

@@ -23,7 +23,7 @@ TEST(example1)
 }
 
 
-//2:注意内存释放： 例子muduo:examples:asio:timer6
+//2:注意内存释放： 例子muduo:examples:asio:timer6 (ps: 如果server是loop的成员就没问题，异步对象直接有引用就得考虑）
 namespace example2
 {
 	class Print {

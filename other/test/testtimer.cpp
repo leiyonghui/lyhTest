@@ -136,25 +136,23 @@ void testTimer2()
     TimerWheel* wheel = new TimerWheel();
     TimerHander* hander = new TimerHander(wheel);
 
-    NOW("start");
 
     CheckTime check;
     check.CheckBegin();
 
     auto now = system_clock::now();
     hander->addTimer(now + 100ms, 1000ms, 5, []() {
-        NOW("time1");
+        NOW("----time1");
     });
 
-    int32 tick = 0, maxTick = 1000 * 60;
-    chrono::milliseconds last = TimeHelp::clock_ms();
+    int32 tick = 0, maxTick = 7 * 1000;
+    //chrono::milliseconds last = TimeHelp::clock_ms();
+	TimeHelp::StartUp();
     while (++tick <= maxTick)
     {
         Sleep(1);
         auto now = TimeHelp::clock_ms();
-        auto tickNow = now - last;
-        last = now;
-        wheel->update(tickNow.count());
+        wheel->update(now.count());
     }
 
     check.CheckPoint("1");
