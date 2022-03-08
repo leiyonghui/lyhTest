@@ -186,3 +186,19 @@ public:
 		return *this;
 	}
 };
+/*
+	auto pf = [](string s, const auto& a) {
+		cout <<s<<": " << a.size() << "  " << a.capacity() << "  " << (a.empty() ? 0 : a.front()) << endl;
+	};
+	std::vector<int> a{12, 32}; --≥ı÷µ¡–
+	pf("a", a);
+	std::vector<int> b(12, 32); --b(size, value): resize and copyconstruction
+	pf("b", b);
+	std::vector<int> c;			
+	c.resize(5);				-- size == cap
+	pf("c", c);
+	cout << c[0] << endl;
+	std::vector<int> d;
+	d.reserve(5);				--size=0, cap = value
+	pf("d", d);
+*/

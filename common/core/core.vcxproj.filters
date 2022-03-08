@@ -40,6 +40,9 @@
     <ClCompile Include="Timers.cpp" />
     <ClCompile Include="RingBuff.cpp" />
     <ClCompile Include="TimeHelp.cpp" />
+    <ClCompile Include="..\..\include\core\Util.h">
+      <Filter>include</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
