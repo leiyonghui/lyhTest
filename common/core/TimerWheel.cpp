@@ -19,7 +19,7 @@ namespace timerwheel
     void TimerWheel::delTimer(TimerEvent* event)
     {
         event->leave();
-        delete event;
+		event->_invalid = true;
     }
 
     void TimerWheel::update(Tick now)
@@ -48,7 +48,7 @@ namespace timerwheel
         try
         {
             event->onTimeout();
-            if (event->_period > 0 && (event->_count > 1 || !event->_count))
+            if (!event->_invalid && event->_period > 0 && (event->_count > 1 || !event->_count))
             {
                 if (event->_count)
                     event->_count--;

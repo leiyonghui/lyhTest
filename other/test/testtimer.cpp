@@ -141,7 +141,9 @@ void testTimer2()
     check.CheckBegin();
 
     auto now = system_clock::now();
-    hander->addTimer(now + 100ms, 1000ms, 5, []() {
+	int64 id;
+    id = hander->addTimer(now + 100ms, 1000ms, 5, [hander, &id]() {
+		hander->cancel(id);
         NOW("----time1");
     });
 

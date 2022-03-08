@@ -32,6 +32,7 @@ class TimerEvent : CFastNode<TimerEvent*>
 	Tick _period;
 	int32 _count;
 	TimeoutCallback _callback;
+	bool _invalid;
 public:
 	TimerEvent(int64 id, TimerHander* ptr, Tick tick, Tick period, int32 count, TimeoutCallback&& callback) : 
 	CFastNode<TimerEvent*>(this),
@@ -40,7 +41,8 @@ public:
 	_tick(tick),
 	_period(period), 
 	_count(count),
-	_callback(std::move(callback))
+	_callback(std::move(callback)),
+	_invalid(true)
 	{
 		//assert(_hander);
 	}
