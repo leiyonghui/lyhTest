@@ -7,44 +7,18 @@
 #include "headers.h"
 #include <set>
 #include <map>
+#include "core/TimeHelp.h"
+#include <ctime>
+#include <core/Loger.h>
 
 using namespace std;
-
-
-class AA {
-public:
-	AA(int32 a) {
-
-	}
-};
+using namespace core;
 
 int main()
 {
-    //testChrono();
-	//AA a[2];
-	//AA b(1);
-	//AA* c = new AA[2];
-	auto pf = [](string s, const auto& a) {
-		cout <<s<<": " << a.size() << "  " << a.capacity() << "  " << (a.empty() ? 0 : a.front()) << endl;
-	};
-	std::vector<int> a{12, 32};
-	//std::vector<int>::iterator a1;
-	pf("a", a);
-	std::vector<int> b(5, 32);
-	b.reserve(3);
-	pf("b", b);
-	std::vector<int> c;
-	c.resize(5);
-	pf("c", c);
-	cout << c[0] << endl;
-	std::vector<int> d;
-	d.reserve(5);
-	pf("d", d);
-
-	std::vector<std::vector<int>> a1{ {1, 2}, {1, 4} };
-
-	std::set<int> aa;
-	d.insert(d.end(), aa.begin(), aa.end());
+    core_log_trace(1, "123");
+	core_log_error("...");
+	core_log_warning("123");
     system("pause");
     return 0;
 }

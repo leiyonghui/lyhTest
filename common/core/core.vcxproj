@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\FastNode.h" />
+    <ClInclude Include="..\..\include\core\Loger.h" />
     <ClInclude Include="..\..\include\core\RingBuff.h" />
     <ClInclude Include="..\..\include\core\TimeHelp.h" />
     <ClInclude Include="..\..\include\core\Timers.h" />

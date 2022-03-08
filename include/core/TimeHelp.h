@@ -61,8 +61,8 @@ public:
 	static int GetSecond(time_t t);
 
 	static time_t now() {
-#if _C_STYLE
-		return time();//返回保有从纪元开始至今秒数的整数类型值
+#if 0
+		return time(NULL);//返回保有从纪元开始至今秒数的整数类型值
 #else
 		return system_clock::to_time_t(system_clock::now());//转换系统时钟时间点为 std::time_t
 #endif

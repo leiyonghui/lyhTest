@@ -42,13 +42,13 @@ string TimeHelp::TimeToString(time_t t)
 	if (t > 0)
 	{
 		char buf[100];
-		const char* fmt = "%02d-%02d-%02d %02d:%02d:%02d";
+		const char* fmt = "%04d-%02d-%02d %02d:%02d:%02d";
 		auto ti = *localtime(&t);
 #ifdef _WIN32
-		int n = sprintf_s(buf, fmt, ti.tm_year, ti.tm_mon + 1, ti.tm_mday, ti.tm_hour, ti.tm_min, ti.tm_sec);
+		int n = sprintf_s(buf, fmt, ti.tm_year + 1900, ti.tm_mon + 1, ti.tm_mday, ti.tm_hour, ti.tm_min, ti.tm_sec);
 #endif
 #ifdef __linux
-		int n = sprintf(buf, fmt, ti.tm_year, ti.tm_mon + 1, ti.tm_mday, ti.tm_hour, ti.tm_min, ti.tm_sec);
+		int n = sprintf(buf, fmt, ti.tm_year + 1900, ti.tm_mon + 1, ti.tm_mday, ti.tm_hour, ti.tm_min, ti.tm_sec);
 #endif
 		return string(buf, n);
 	}
