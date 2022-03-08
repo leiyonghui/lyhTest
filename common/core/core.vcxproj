@@ -28,10 +28,10 @@
     <ClInclude Include="..\..\include\core\SkipList.h" />
     <ClInclude Include="..\..\include\core\TimerWheel.h" />
     <ClInclude Include="..\..\include\core\Types.h" />
+    <ClInclude Include="..\..\include\core\Util.h" />
     <ClInclude Include="..\..\include\core\Vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\include\core\Util.h" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="RingBuff.cpp" />
     <ClCompile Include="Shared.cpp" />
