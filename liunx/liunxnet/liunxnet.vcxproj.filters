@@ -3,10 +3,13 @@
   <ItemGroup>
     <ClInclude Include="headers.h" />
     <ClInclude Include="Configs.h" />
+    <ClInclude Include="Address.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="echo_client.cpp" />
     <ClCompile Include="echo_epollserv.cpp" />
+    <ClCompile Include="Address.cpp" />
   </ItemGroup>
 </Project>

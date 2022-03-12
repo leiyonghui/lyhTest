@@ -83,13 +83,16 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClCompile Include="Address.cpp" />
     <ClCompile Include="echo_client.cpp" />
     <ClCompile Include="echo_epollserv.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Address.h" />
     <ClInclude Include="Configs.h" />
     <ClInclude Include="headers.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <ClCompile>

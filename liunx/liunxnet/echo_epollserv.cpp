@@ -103,7 +103,7 @@ int32 echoEpollServ(int32 port)
                 adr_sz = sizeof(clnt_adr);
                 clnt_sock =
                     accept(serv_sock, (struct sockaddr*)&clnt_adr, &adr_sz);
-                event.events = EPOLLIN /*| EPOLLOUT*/;
+                event.events = EPOLLIN /*| EPOLLOUT*/ | EPOLLET;
                 event.data.fd = clnt_sock;
                 epoll_ctl(epfd, EPOLL_CTL_ADD, clnt_sock, &event);
                 setBuffSize(clnt_sock, 100, 10);
