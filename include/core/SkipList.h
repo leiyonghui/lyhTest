@@ -2,10 +2,13 @@
 // Created by lyh on 2021.9.7
 
 #pragma once
-#include "types.h"
+#include "Types.h"
 #include <map>
 #include <vector>
-#include <boost/function.hpp>
+#include <algorithm>
+#include <functional>
+
+using namespace core;
 
 static const int32 SKIPLIST_MAXLEVEL = 31;
 
