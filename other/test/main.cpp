@@ -12,32 +12,45 @@
 #include <core/Loger.h>
 #include <functional>
 #include <windows.h>
+#include "core/ObjectPools.h"
 #pragma comment(lib, "wsock32.lib")
 using namespace std;
 using namespace core;
 
 using func = std::function<void()>;
 
-void F1(func&& f)
-{
-    func ff(std::move(f));
-}
 
-void F2(func&& f) 
+class A
 {
-    F1(std::move(f));
-    cout << "222" << endl;
-}
+public:
+    int32 a;
+
+    void onAwake() {
+        cout << "--awake" << endl;
+    }
+
+    void onRecycle()
+    {
+		cout << "--recycle" << endl;
+    }
+
+	template<class ...Args>
+	void pf(Args ...args)
+	{
+
+	}
+};
+
+
 
 int main()
 {
-	F2([]() {
-		cout << "..." << endl;
-	});
-    core_log_trace(1, "123");
-	core_log_error("...");
-	core_log_warning("123");
-    //testTimer2();
+    CObjectPool<A>::Instance(new CObjectPool<A>);
+    {
+		auto aa = CObjectPool<A>::Instance()->create();
+		aa->a = 1;
+    }
+    CObjectPool<A>::Instance()->printInfo();
     system("pause");
     return 0;
 }

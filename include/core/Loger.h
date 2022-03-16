@@ -8,12 +8,13 @@ namespace core
 	inline void printf_log(string time, const char* file, int line, Args ...args)
 	{
 		std::cout << time << " " << file << ":" << line;
+		//((std::cout) << ... << (args <<" ")) << endl;//(cout << "1" << ( "2"<< ("3" << ("4" << "5"))));
 		((std::cout << " " << args), ...) << std::endl;
 	}
 
 	inline const char* get_short_file(const char* file, size_t size)
 	{
-		for (size_t i = size - 1; i >= 0; --i)
+		for (size_t i = size - 2; i >= 0; --i)
 		{
 			switch (file[i]) { case '/': case '\\': return file + i + 1; };
 		}

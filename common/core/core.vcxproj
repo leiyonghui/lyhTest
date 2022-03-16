@@ -22,7 +22,9 @@
     <ClInclude Include="..\..\include\core\common.h" />
     <ClInclude Include="..\..\include\core\FastNode.h" />
     <ClInclude Include="..\..\include\core\Loger.h" />
+    <ClInclude Include="..\..\include\core\ObjectPools.h" />
     <ClInclude Include="..\..\include\core\RingBuff.h" />
+    <ClInclude Include="..\..\include\core\Singleton.h" />
     <ClInclude Include="..\..\include\core\TimeHelp.h" />
     <ClInclude Include="..\..\include\core\Timers.h" />
     <ClInclude Include="..\..\include\core\List.h" />
