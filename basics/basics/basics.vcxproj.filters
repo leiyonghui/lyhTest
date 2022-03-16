@@ -9,6 +9,7 @@
     <ClCompile Include="Thread.cpp" />
     <ClCompile Include="StdPtr.cpp" />
     <ClCompile Include="destructor.cpp" />
+    <ClCompile Include="upper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="byte.h" />
@@ -20,5 +21,6 @@
     <ClInclude Include="StdPtr.h" />
     <ClInclude Include="destructor.h" />
     <ClInclude Include="headers.h" />
+    <ClInclude Include="objectpool.h" />
   </ItemGroup>
 </Project>

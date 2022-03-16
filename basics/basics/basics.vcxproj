@@ -27,6 +27,7 @@
     <ClCompile Include="object.cpp" />
     <ClCompile Include="StdPtr.cpp" />
     <ClCompile Include="Thread.cpp" />
+    <ClCompile Include="upper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="byte.h" />
@@ -35,6 +36,7 @@
     <ClInclude Include="headers.h" />
     <ClInclude Include="lambda.h" />
     <ClInclude Include="object.h" />
+    <ClInclude Include="objectpool.h" />
     <ClInclude Include="operation.h" />
     <ClInclude Include="StdPtr.h" />
     <ClInclude Include="Thread.h" />
@@ -152,6 +154,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>..\..\include\;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
