@@ -3,16 +3,44 @@
 #include "Singleton.h"
 #include <list>
 #include <memory>
+#include <map>
+#include <string.h>
+#include <functional>
+
+
+class CObjectPoolMonitor
+{
+	static std::map<std::string, std::function<void()>> ObjectPoolMap;
+public:
+	static void monitorPool(std::string name, std::function<void()>&& func)
+	{
+		ObjectPoolMap[name] = std::move(func);
+	}
+
+	static void delMonitorPool(const std::string& name)//?
+	{
+		ObjectPoolMap.erase(name);
+	}
+
+	static void showInfo()
+	{
+		for (const auto&[name, func] : ObjectPoolMap)
+			func();
+	}
+};
+std::map<std::string, std::function<void()>> CObjectPoolMonitor::ObjectPoolMap;
+
 
 #define INIT_OBJECT_SIZE 16
-
 template<class T>
 class CObjectPool : public CSingleton<CObjectPool<T>>
 {
 	using List = std::list<T*>;
 
 public:
-	CObjectPool():_useCount(0),_freeCount(0) {}
+	CObjectPool():_useCount(0),_freeCount(0) {
+		CObjectPoolMonitor::monitorPool(typeid(T).name(), [this]() { this->printInfo(); });
+	}
 
 	virtual~CObjectPool() {
 		auto iter = _list.begin();
@@ -60,3 +88,4 @@ private:
 			_list.push_back(new T());
 	}
 };
+

@@ -50,7 +50,8 @@ int main()
 		auto aa = CObjectPool<A>::Instance()->create();
 		aa->a = 1;
     }
-    CObjectPool<A>::Instance()->printInfo();
+    //CObjectPool<A>::Instance()->printInfo();
+    CObjectPoolMonitor::showInfo();
     system("pause");
     return 0;
 }
