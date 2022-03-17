@@ -11,25 +11,28 @@ class CObjectPool : public CSingleton<CObjectPool<T>>
 {
 	using List = std::list<T*>;
 
+	//using Iterator = std::list<T*>::const_iterator;
 public:
+	//const static Iterator NullIter;
+
 	CObjectPool():_useCount(0),_freeCount(0) {}
 
 	virtual~CObjectPool() {
-		auto iter = _list.begin();
-		while (iter != _list.end())
+		auto iter = _freeObjects.begin();
+		while (iter != _freeObjects.end())
 		{
 			delete *iter;
-			_list.erase(iter++);
+			_freeObjects.erase(iter++);
 		}
 	}
 	
-	template<class ...Args>
-	std::shared_ptr<T> create(Args ...args)
+	template<class ...Args>std::shared_ptr<T> create(Args ...args)
 	{
-		while (_list.empty())
+		while (_freeObjects.empty())
 			assignObjs(INIT_OBJECT_SIZE);
-		T* ptr = _list.front();
-		_list.pop_front();
+		T* ptr = _freeObjects.front();
+		_freeObjects.pop_front();
+		ptr->setOjectorIter(_usingOjects.end(), _usingOjects.insert(ptr));
 		ptr->onAwake(std::forward<Args>(args)...);
 		++_useCount;
 		--_freeCount;
@@ -42,14 +45,18 @@ public:
 	}
 
 private:
-	List _list;
+	List _freeObjects;
+	List _usingOjects;
 	int32 _useCount;
 	int32 _freeCount;
 
 	void recycle(T* ptr) {
+		auto iter = ptr->getObjectorIter();
 		if (ptr) {
 			ptr->onRecycle();
-			_list.push_back(ptr);
+			_usingOjects.erase(iter);
+			ptr->setOjectorIter(_usingOjects.end());
+			_freeObjects.push_back(ptr);
 			++_freeCount;
 			--_useCount;
 		}
@@ -57,6 +64,9 @@ private:
 
 	void assignObjs(int32 amount) {
 		for (int32 i = 0; i < amount; ++i, ++_freeCount)
-			_list.push_back(new T());
+			_freeObjects.push_back(new T());
 	}
 };
+
+//template<typename T>
+//const CObjectPool<T>::Iterator CObjectPool<T>::NullIter = std::list<T*>::iterator();
