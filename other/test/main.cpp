@@ -21,7 +21,7 @@ using namespace core;
 using func = std::function<void()>;
 
 
-class A
+class A : public CPoolObject<A>
 {
 public:
     int32 a;
@@ -34,16 +34,6 @@ public:
     {
 		cout << "--recycle" << endl;
     }
-
-	void setOjectorIter(std::list<A*>::iterator iter)
-	{
-
-	}
-
-	std::list<A*>::iterator getObjectorIter()
-	{
-		return std::list<A*>::iterator();
-	}
 
 	template<class ...Args>
 	void pf(Args ...args)

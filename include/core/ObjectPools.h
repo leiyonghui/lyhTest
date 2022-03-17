@@ -1,5 +1,6 @@
 #pragma once
 #include "Configs.h"
+#include "Singleton.h"
 
 namespace core
 {
@@ -108,9 +109,11 @@ namespace core
 
 		void setOjectorIter(const Iterator& iter) {
 			_poolIter = iter;
+			cout << "base.setOjectorIter" << endl;
 		}
 
 		Iterator getObjectorIter() const {
+			cout << "base.getObjectorIter" << endl;
 			return _poolIter;
 		}
 	};

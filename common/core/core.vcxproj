@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\core\common.h" />
+    <ClInclude Include="..\..\include\core\Configs.h" />
     <ClInclude Include="..\..\include\core\FastNode.h" />
     <ClInclude Include="..\..\include\core\Loger.h" />
     <ClInclude Include="..\..\include\core\ObjectPools.h" />
