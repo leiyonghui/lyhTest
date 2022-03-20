@@ -18,7 +18,7 @@ void RingBuff::write(char* buff, uint32 len)
     assert(len > 0);
     ensure(_size + len);
 
-    if (_end > _front || (_end == _front && !_size)) 
+    if (_end >= _front /*|| (_end == _front && !_size)*/) //ensure保证有空间
     {
         uint32 count = _capacity - _end;
         if (len <= count) 
@@ -71,6 +71,29 @@ void RingBuff::read(char* buff, uint32 len)
         }
     }
     _size -= len;
+}
+
+char* RingBuff::back()
+{
+    if (_end > _front || (_end == _front && !_size))
+    {
+        return _end == _capacity ? nullptr : _buff + _end;
+    }
+}
+
+char* RingBuff::front()
+{
+    return nullptr;
+}
+
+uint32 RingBuff::backBytes()
+{
+    return uint32();
+}
+
+uint32 RingBuff::frontBytes()
+{
+    return uint32();
 }
 
 void RingBuff::ensure(uint32 capacity)

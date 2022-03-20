@@ -16,9 +16,19 @@ public:
 
     void read(char* buff, uint32 len);
 
+    char* back();
+
+    char* front();
+
+    bool empty() { return _size > 0; }
+
     uint32 writableBytes() { return _capacity - _size; };
 
     uint32 readableBytes() { return _size; }
+
+    uint32 backBytes();
+
+    uint32 frontBytes();
 
     uint32 size() { return _size; }
 
