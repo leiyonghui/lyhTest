@@ -13,6 +13,7 @@
 #include <functional>
 #include <windows.h>
 #include "core/ObjectPools.h"
+#include "core/common.h"
 #include <list>
 #pragma comment(lib, "wsock32.lib")
 using namespace std;
@@ -21,7 +22,13 @@ using namespace core;
 using func = std::function<void()>;
 
 
-class A : public CPoolObject<A>
+class Father {
+public:
+	Father() = default;
+	int32 f;
+};
+
+class A : public CPoolObject<A>, public Father
 {
 public:
     int32 a;
@@ -74,16 +81,63 @@ template <typename T> class X
 };
 
 
+class BB
+{
+	template<class ...Args>
+	void pf(Args ...args)
+	{
+
+	}
+};
+
+
+class F1
+{
+public:
+	virtual ~F1() {
+		cout << " f1" << endl;
+	}
+};
+
+class F2 : public F1
+{
+public:
+	virtual ~F2()
+	{
+		cout << "f2" << endl;
+	}
+};
+
 int main()
 {
-    CObjectPool<A>::Instance(new CObjectPool<A>);
-    {
-		auto aa = CObjectPool<A>::Instance()->create();
-		aa->a = 1;
-    }
-    //CObjectPool<A>::Instance()->printInfo();
-    CObjectPoolMonitor::showInfo();
+	{
+		F2 f2;
+	}
+	std::map<int32, F2*> ma;
+	F2* a;
+	core::find(ma, 1, a);
     system("pause");
     return 0;
 }
 
+/*
+CObjectPool<A>::Instance(new CObjectPool<A>);
+	std::shared_ptr<A> aa1;
+	std::shared_ptr<Father> F;
+	{
+		auto aa = CObjectPool<A>::Instance()->create();
+		aa->a = 1;
+		aa->f = 12;
+		//aa1 = aa;
+		F = ::std::static_pointer_cast<Father>(aa);
+		CObjectPoolMonitor::showInfo();
+	}
+	//CObjectPool<A>::Instance()->printInfo();
+	CObjectPoolMonitor::showInfo();
+	cout << F->f << endl;
+
+
+	std::map<int32, int32> mapa;
+	mapa[1] = 1;
+	const int32 k = 1;
+	cout << core::find(mapa, 1, 0) << endl;*/
