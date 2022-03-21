@@ -23,8 +23,9 @@ int32 echoClient(char* ip, int32 port)
 
     memset(&serv_adr, 0, sizeof(serv_adr));
     serv_adr.sin_family = AF_INET;
-    serv_adr.sin_addr.s_addr = inet_addr(ip);
-    serv_adr.sin_port = htons(port);
+    serv_adr.sin_addr.s_addr = inet_addr("127.0.0.1");
+    serv_adr.sin_port = htons(9802);
+    cout << serv_adr.sin_addr.s_addr << "  " << serv_adr.sin_port << endl;
 
     if (connect(sock, (struct sockaddr*)&serv_adr, sizeof(serv_adr)) == -1)
         error_handling("connect() error!");
