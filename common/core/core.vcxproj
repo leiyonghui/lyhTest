@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="List.cpp" />
+    <ClCompile Include="ObjectPools.cpp" />
     <ClCompile Include="RingBuff.cpp" />
     <ClCompile Include="Shared.cpp" />
     <ClCompile Include="TimeHelp.cpp" />

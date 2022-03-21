@@ -10,7 +10,9 @@
 #include <vector>
 #include <list>
 #include <functional>
+#include <assert.h>
 #include "Loger.h"
+#include "Singleton.h"
 
 namespace core
 {

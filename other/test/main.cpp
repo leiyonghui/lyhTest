@@ -28,7 +28,7 @@ public:
 	int32 f;
 };
 
-class A : public CPoolObject<A>, public Father
+class A : public CPoolObject, public Father
 {
 public:
     int32 a;
@@ -110,12 +110,20 @@ public:
 
 int main()
 {
-	std::vector<int32> a;
-	a.push_back(1);
-	a.push_back(1);
-	a.push_back(1);
-	auto iter = a.end() - 1;
-	cout << a.end()  - a.begin() << endl;
+	//std::shared_ptr<A> aa1;
+	//std::shared_ptr<Father> F;
+	//{
+	//	auto aa = CObjectPool<A>::Instance()->create();
+	//	aa->a = 1;
+	//	aa->f = 12;
+	//	//aa1 = aa;
+	//	F = ::std::static_pointer_cast<Father>(aa);
+	//	CObjectPoolMonitor::showInfo();
+	//}
+	////CObjectPool<A>::Instance()->printInfo();
+	//CObjectPoolMonitor::showInfo();
+	//cout << F->f << endl;
+	testbuff();
     system("pause");
     return 0;
 }

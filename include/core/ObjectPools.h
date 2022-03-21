@@ -1,6 +1,5 @@
 #pragma once
 #include "Configs.h"
-#include "Singleton.h"
 
 namespace core
 {
@@ -20,13 +19,12 @@ namespace core
 
 		static void showInfo()
 		{
-			//core_log_info("ObjectPoolInfo Start", TimeHelp::TimeToString(TimeHelp::now()));
+			core_log_info("ObjectPoolInfo Start", TimeHelp::TimeToString(TimeHelp::now()));
 			for (const auto& iter : ObjectPoolMap)
 				iter.second();
-			//core_log_info("ObjectPoolInfo End");
+			core_log_info("ObjectPoolInfo End");
 		}
 	};
-	std::map<std::string, std::function<void()>> CObjectPoolMonitor::ObjectPoolMap;
 
 
 #define INIT_OBJECT_SIZE 16
@@ -44,12 +42,7 @@ namespace core
 		}
 
 		virtual~CObjectPool() {
-			auto iter = _freeObjects.begin();
-			while (iter != _freeObjects.end())
-			{
-				delete* iter;
-				_freeObjects.erase(iter++);
-			}
+
 		}
 
 		template<class ...Args>std::shared_ptr<T> create(Args ...args)
@@ -58,7 +51,7 @@ namespace core
 				assignObjs(INIT_OBJECT_SIZE);
 			T* ptr = _freeObjects.front();
 			_freeObjects.pop_front();
-			ptr->setOjectorIter(_usingOjects.insert(_usingOjects.end(), ptr));
+			ptr->setUsing(true);
 			ptr->onAwake(std::forward<Args>(args)...);
 			++_useCount;
 			--_freeCount;
@@ -67,22 +60,18 @@ namespace core
 
 		void printInfo()
 		{
-			cout << typeid(T).name() << " use:" << _useCount << " free:" << _freeCount << endl;
-			//core_log_info(typeid(T).name(), "user:", _useCount, "free:", _freeCount);
+			core_log_info(typeid(T).name(), "user:", _useCount, "free:", _freeCount);
 		}
 
 	private:
 		List _freeObjects;
-		List _usingOjects;
 		int32 _useCount;
 		int32 _freeCount;
 
 		void recycle(T* ptr) {
-			auto iter = ptr->getObjectorIter();
-			if (ptr && iter != _usingOjects.end()) {
+			if (ptr && ptr->isUsing()) {
 				ptr->onRecycle();
-				_usingOjects.erase(iter);
-				ptr->setOjectorIter(NullIter);
+				ptr->setUsing(false);
 				_freeObjects.push_back(ptr);
 				++_freeCount;
 				--_useCount;
@@ -99,22 +88,15 @@ namespace core
 	const typename CObjectPool<T>::Iterator CObjectPool<T>::NullIter = CObjectPool<T>::Iterator();
 
 
-	template<class T>
 	class CPoolObject
 	{
-		using Iterator = typename std::list<T*>::iterator;
-		Iterator _poolIter;
+		bool _using;
 	public:
-		CPoolObject() :_poolIter(CObjectPool<T>::NullIter) {}
+		CPoolObject() :_using(false) {}
 
-		void setOjectorIter(const Iterator& iter) {
-			_poolIter = iter;
-			cout << "base.setOjectorIter" << endl;
-		}
+		void setUsing(bool use) { _using = use; };
 
-		Iterator getObjectorIter() const {
-			cout << "base.getObjectorIter" << endl;
-			return _poolIter;
-		}
+		bool isUsing() const { return _using; }
 	};
+
 }
