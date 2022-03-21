@@ -110,12 +110,12 @@ public:
 
 int main()
 {
-	{
-		F2 f2;
-	}
-	std::map<int32, F2*> ma;
-	F2* a;
-	core::find(ma, 1, a);
+	std::vector<int32> a;
+	a.push_back(1);
+	a.push_back(1);
+	a.push_back(1);
+	auto iter = a.end() - 1;
+	cout << a.end()  - a.begin() << endl;
     system("pause");
     return 0;
 }

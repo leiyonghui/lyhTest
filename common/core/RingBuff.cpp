@@ -4,13 +4,14 @@
 
 using uint32 = unsigned int;
 
-RingBuff::RingBuff(uint32 capacity) :_capacity(capacity), _front(0), _end(0), _size(0),_buff(new char[_capacity]) {
-    
+RingBuff::RingBuff(uint32 capacity) :_capacity(capacity), _front(0), _end(0), _size(0),_buff(new char[_capacity]), _writerv(new SWritev[2]) {
+
 }
 
 RingBuff::~RingBuff()
 {
     delete[] _buff;
+	delete[] _writerv;
 }
 
 void RingBuff::write(char* buff, uint32 len)
@@ -73,27 +74,36 @@ void RingBuff::read(char* buff, uint32 len)
     _size -= len;
 }
 
-char* RingBuff::back()
+SWritev* RingBuff::writerv()
 {
-    if (_end > _front || (_end == _front && !_size))
-    {
-        return _end == _capacity ? nullptr : _buff + _end;
-    }
-}
-
-char* RingBuff::front()
-{
-    return nullptr;
-}
-
-uint32 RingBuff::backBytes()
-{
-    return uint32();
-}
-
-uint32 RingBuff::frontBytes()
-{
-    return uint32();
+	if (_capacity == _size) 
+	{
+		_writerv[0].clear();
+		_writerv[1].clear();
+	}
+	else
+	{
+		if (_end >= _front)
+		{
+#ifdef _DEBUG
+			assert(_size == 0 ? _end == _front : true);
+#endif // _DEBUG
+			uint32 len1 = _capacity - _end;
+			_writerv[0].buff = len1 > 0 ? _buff + _end : nullptr;
+			_writerv[0].len = len1;
+			uint32 len2 = _front - 1;
+			_writerv[1].buff = len1 > 0 ? _buff : nullptr;
+			_writerv[1].len = len2;
+		}
+		else
+		{
+			uint32 len1 = _front - _end;
+			_writerv[0].buff = _buff + _end;
+			_writerv[0].len = len1;
+			_writerv[1].clear();
+		}
+	}
+	return _writerv;
 }
 
 void RingBuff::ensure(uint32 capacity)
