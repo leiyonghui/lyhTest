@@ -110,20 +110,9 @@ public:
 
 int main()
 {
-	//std::shared_ptr<A> aa1;
-	//std::shared_ptr<Father> F;
-	//{
-	//	auto aa = CObjectPool<A>::Instance()->create();
-	//	aa->a = 1;
-	//	aa->f = 12;
-	//	//aa1 = aa;
-	//	F = ::std::static_pointer_cast<Father>(aa);
-	//	CObjectPoolMonitor::showInfo();
-	//}
-	////CObjectPool<A>::Instance()->printInfo();
-	//CObjectPoolMonitor::showInfo();
-	//cout << F->f << endl;
-	testbuff();
+	std::map<int32, F2*> mapa;
+	cout << core::find<F2*>(mapa, 1,  nullptr) << endl;
+	//testbuff();
     system("pause");
     return 0;
 }
