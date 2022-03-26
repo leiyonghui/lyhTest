@@ -10,13 +10,14 @@ void testPool()
 	std::shared_ptr<A> aa1;
 	std::shared_ptr<Father> F;
 	{
-		auto aa = CObjectPool<A>::Instance()->createShare();
+		std::map<int32, int32> bb{ {1,2} };
+		auto aa = CObjectPool<A>::Instance()->createShare(std::move(bb));
 		aa->a = 1;
 		aa->f = 12;
-		F = ::std::static_pointer_cast<Father>(aa);
-		auto fbb = CObjectPool<A>::Instance()->createUnique();
-		CObjectPoolMonitor::showInfo();
+		//F = ::std::static_pointer_cast<Father>(aa);
+		//auto fbb = CObjectPool<A>::Instance()->createUnique();
+		//CObjectPoolMonitor::showInfo();
 	}
 	CObjectPoolMonitor::showInfo();
-	core_log_trace(F->f);
+	//core_log_trace(F->f);
 }

@@ -64,7 +64,15 @@ namespace core
 		}
 		
 		template<class ...Args>
-		T* create(Args ...args)
+		T* create(const Args& ...args)
+		{
+			auto ptr = popObject();
+			ptr->onAwake(args...);
+			return ptr;
+		}
+
+		template<class ...Args>
+		T* create(Args&& ...args)
 		{
 			auto ptr = popObject();
 			ptr->onAwake(std::forward<Args>(args)...);
@@ -72,15 +80,32 @@ namespace core
 		}
 
 		template<class ...Args>
-		std::shared_ptr<T> createShare(Args ...args)
+		std::shared_ptr<T> createShare(const Args& ...args)
 		{
+			auto ptr = popObject();
+			ptr->onAwake(args...);
+			return std::shared_ptr<T>(ptr, [this](T* ptr) { this->recycle(ptr); });
+		}
+
+		template<class ...Args>
+		std::shared_ptr<T> createShare(Args&& ...args)
+		{
+			core_log_info("createShare");
 			auto ptr = popObject();
 			ptr->onAwake(std::forward<Args>(args)...);
 			return std::shared_ptr<T>(ptr, [this](T* ptr) { this->recycle(ptr); });
 		}
 
 		template<class ...Args>
-		std::unique_ptr<T, Deleter> createUnique(Args ...args)
+		std::unique_ptr<T, Deleter> createUnique(const Args& ...args)
+		{
+			auto ptr = popObject();
+			ptr->onAwake(args...);
+			return std::unique_ptr<T, Deleter>(ptr, [this](T* ptr) { this->recycle(ptr); });
+		}
+
+		template<class ...Args>
+		std::unique_ptr<T, Deleter> createUnique(Args&& ...args)
 		{
 			auto ptr = popObject();
 			ptr->onAwake(std::forward<Args>(args)...);
@@ -136,13 +161,14 @@ namespace core
 
 	class CPoolObject
 	{
-		bool _using;
 	public:
 		CPoolObject() :_using(false) {}
 
 		void setUsing(bool use) { _using = use; };
 
 		bool isUsing() const { return _using; }
+	protected:
+		bool _using;
 	};
 
 }
