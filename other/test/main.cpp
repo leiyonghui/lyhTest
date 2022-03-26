@@ -21,35 +21,6 @@ using namespace core;
 
 using func = std::function<void()>;
 
-
-class Father {
-public:
-	Father() = default;
-	int32 f;
-};
-
-class A : public CPoolObject, public Father
-{
-public:
-    int32 a;
-
-    void onAwake() {
-        cout << "--awake" << endl;
-    }
-
-    void onRecycle()
-    {
-		cout << "--recycle" << endl;
-    }
-
-	template<class ...Args>
-	void pf(Args ...args)
-	{
-
-	}
-};
-
-
 template<class T>
 class C
 {
@@ -89,12 +60,12 @@ class BB
 
 	}
 };
-
+  
 
 class F1
 {
 public:
-	virtual ~F1() {
+	 ~F1() {
 		cout << " f1" << endl;
 	}
 };
@@ -108,33 +79,16 @@ public:
 	}
 };
 
+using der = std::function<void(F2*)>;
+
+std::unique_ptr<F2, der> create()
+{
+	return std::unique_ptr<F2, der>(new F2, [](F2* a) { delete a; });
+}
+
 int main()
 {
-	std::map<int32, F2*> mapa;
-	cout << core::find<F2*>(mapa, 1,  nullptr) << endl;
-	//testbuff();
+	testPool();
     system("pause");
     return 0;
 }
-
-/*
-CObjectPool<A>::Instance(new CObjectPool<A>);
-	std::shared_ptr<A> aa1;
-	std::shared_ptr<Father> F;
-	{
-		auto aa = CObjectPool<A>::Instance()->create();
-		aa->a = 1;
-		aa->f = 12;
-		//aa1 = aa;
-		F = ::std::static_pointer_cast<Father>(aa);
-		CObjectPoolMonitor::showInfo();
-	}
-	//CObjectPool<A>::Instance()->printInfo();
-	CObjectPoolMonitor::showInfo();
-	cout << F->f << endl;
-
-
-	std::map<int32, int32> mapa;
-	mapa[1] = 1;
-	const int32 k = 1;
-	cout << core::find(mapa, 1, 0) << endl;*/
