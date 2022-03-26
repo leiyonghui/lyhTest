@@ -88,7 +88,10 @@ std::unique_ptr<F2, der> create()
 
 int main()
 {
+	auto a = CObjectPool<A>::Instance()->create();
 	testPool();
+	CObjectPool<A>::Instance()->recycle(a);
+	CObjectPoolMonitor::showInfo();
     system("pause");
     return 0;
 }

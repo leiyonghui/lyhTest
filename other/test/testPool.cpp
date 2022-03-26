@@ -10,7 +10,7 @@ void testPool()
 	std::shared_ptr<A> aa1;
 	std::shared_ptr<Father> F;
 	{
-		auto aa = CObjectPool<A>::Instance()->create();
+		auto aa = CObjectPool<A>::Instance()->createShare();
 		aa->a = 1;
 		aa->f = 12;
 		F = ::std::static_pointer_cast<Father>(aa);
