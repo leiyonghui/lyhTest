@@ -63,13 +63,13 @@ namespace core
 			return _instance;
 		}
 		
-		template<class ...Args>
+		/*template<class ...Args>
 		T* create(const Args& ...args)
 		{
 			auto ptr = popObject();
 			ptr->onAwake(args...);
 			return ptr;
-		}
+		}*/
 
 		template<class ...Args>
 		T* create(Args&& ...args)
@@ -79,13 +79,13 @@ namespace core
 			return ptr;
 		}
 
-		template<class ...Args>
-		std::shared_ptr<T> createShare(const Args& ...args)
-		{
-			auto ptr = popObject();
-			ptr->onAwake(args...);
-			return std::shared_ptr<T>(ptr, [this](T* ptr) { this->recycle(ptr); });
-		}
+		//template<class ...Args>
+		//std::shared_ptr<T> createShare(const Args& ...args)
+		//{
+		//	auto ptr = popObject();
+		//	ptr->onAwake(args...);
+		//	return std::shared_ptr<T>(ptr, [this](T* ptr) { this->recycle(ptr); });
+		//}
 
 		template<class ...Args>
 		std::shared_ptr<T> createShare(Args&& ...args)
@@ -96,13 +96,13 @@ namespace core
 			return std::shared_ptr<T>(ptr, [this](T* ptr) { this->recycle(ptr); });
 		}
 
-		template<class ...Args>
+		/*template<class ...Args>
 		std::unique_ptr<T, Deleter> createUnique(const Args& ...args)
 		{
 			auto ptr = popObject();
 			ptr->onAwake(args...);
 			return std::unique_ptr<T, Deleter>(ptr, [this](T* ptr) { this->recycle(ptr); });
-		}
+		}*/
 
 		template<class ...Args>
 		std::unique_ptr<T, Deleter> createUnique(Args&& ...args)
