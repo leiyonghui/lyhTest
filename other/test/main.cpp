@@ -108,44 +108,60 @@ public:
 	}
 };
 
+class Base
+{
+public:
+	virtual void fun(int32 a)
+	{
+		cout << "int" << endl;
+	}
+
+	void fun(double a, int32 b)
+	{
+	}
+
+	virtual void fun(double a)
+	{
+		cout << "double" << endl;
+	}
+
+};
+
+class SBace : public Base
+{
+public:
+	virtual void fun(int32 a)//»á°Ñfun(a,b)¸²¸Ç
+	{
+		cout << "sint" << endl;
+	}
+
+	virtual void fun(double a) override
+	{
+		cout << "sdouble" << endl;
+	}
+};
+
+#include <variant>
+
+constexpr int getindex(int32 i);
+
+constexpr int getindex(int32 i)
+{
+	if (i == 0)
+	{
+		return 1;
+	}
+}
+
+template<int A>
+void tt()
+{
+	cout << A << endl;
+}
+
 int main()
 {
-	//std::shared_ptr<A> aa1;
-	//std::shared_ptr<Father> F;
-	//{
-	//	auto aa = CObjectPool<A>::Instance()->create();
-	//	aa->a = 1;
-	//	aa->f = 12;
-	//	//aa1 = aa;
-	//	F = ::std::static_pointer_cast<Father>(aa);
-	//	CObjectPoolMonitor::showInfo();
-	//}
-	////CObjectPool<A>::Instance()->printInfo();
-	//CObjectPoolMonitor::showInfo();
-	//cout << F->f << endl;
-	testbuff();
+	testShare();
     system("pause");
     return 0;
 }
-
-/*
-CObjectPool<A>::Instance(new CObjectPool<A>);
-	std::shared_ptr<A> aa1;
-	std::shared_ptr<Father> F;
-	{
-		auto aa = CObjectPool<A>::Instance()->create();
-		aa->a = 1;
-		aa->f = 12;
-		//aa1 = aa;
-		F = ::std::static_pointer_cast<Father>(aa);
-		CObjectPoolMonitor::showInfo();
-	}
-	//CObjectPool<A>::Instance()->printInfo();
-	CObjectPoolMonitor::showInfo();
-	cout << F->f << endl;
-
-
-	std::map<int32, int32> mapa;
-	mapa[1] = 1;
-	const int32 k = 1;
-	cout << core::find(mapa, 1, 0) << endl;*/

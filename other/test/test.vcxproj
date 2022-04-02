@@ -148,6 +148,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="testBuff.cpp" />
     <ClCompile Include="testchrono.cpp" />
+    <ClCompile Include="testshared.cpp" />
     <ClCompile Include="testtimer.cpp" />
   </ItemGroup>
   <ItemGroup>
