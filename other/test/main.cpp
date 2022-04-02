@@ -21,35 +21,6 @@ using namespace core;
 
 using func = std::function<void()>;
 
-
-class Father {
-public:
-	Father() = default;
-	int32 f;
-};
-
-class A : public CPoolObject, public Father
-{
-public:
-    int32 a;
-
-    void onAwake() {
-        cout << "--awake" << endl;
-    }
-
-    void onRecycle()
-    {
-		cout << "--recycle" << endl;
-    }
-
-	template<class ...Args>
-	void pf(Args ...args)
-	{
-
-	}
-};
-
-
 template<class T>
 class C
 {
@@ -89,12 +60,12 @@ class BB
 
 	}
 };
-
+  
 
 class F1
 {
 public:
-	virtual ~F1() {
+	 ~F1() {
 		cout << " f1" << endl;
 	}
 };

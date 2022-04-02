@@ -5,39 +5,43 @@ namespace core
 {
 	class CObjectPoolMonitor
 	{
-		static std::map<std::string, std::function<void()>> ObjectPoolMap;
+		using ObjectMap = std::map<std::string, std::function<void()>>;
 	public:
-		static void monitorPool(std::string name, std::function<void()>&& func)
+		static ObjectMap& getObjectPool()
 		{
-			ObjectPoolMap[name] = std::move(func);
+			static ObjectMap ObjectPoolMap;//以免Monitor还未创建
+			return ObjectPoolMap;
 		}
 
-		static void delMonitorPool(const std::string& name)//?
+		static void monitorPool(std::string name, std::function<void()>&& func)
 		{
-			ObjectPoolMap.erase(name);
+			auto& objectPoolMap = getObjectPool();
+			assert(objectPoolMap.find(name) == objectPoolMap.end());
+			objectPoolMap[name] = std::move(func);
 		}
 
 		static void showInfo()
 		{
-			core_log_info("ObjectPoolInfo Start", TimeHelp::TimeToString(TimeHelp::now()));
-			for (const auto& iter : ObjectPoolMap)
+			auto& objectPoolMap = getObjectPool();
+			core_log_info("ObjectPoolInfo start:", TimeHelp::TimeToString(TimeHelp::now()));
+			for (const auto& iter : objectPoolMap)
 				iter.second();
-			core_log_info("ObjectPoolInfo End");
+			core_log_info("ObjectPoolInfo end.");
 		}
 	};
 
 
 #define INIT_OBJECT_SIZE 16
 	template<class T>
-	class CObjectPool : public CSingleton<CObjectPool<T>>
+	class CObjectPool
 	{
 		using List = std::list<T*>;
 		using Iterator = typename std::list<T*>::iterator;
-
+		using Deleter = typename std::function<void(T*)>;
 	public:
 		const static Iterator NullIter;
 
-		CObjectPool() :_useCount(0), _freeCount(0) {
+		CObjectPool(int32 size = INIT_OBJECT_SIZE) :_useCount(0), _freeCount(0), _assignSize(size){
 			CObjectPoolMonitor::monitorPool(typeid(T).name(), [this]() { this->printInfo(); });
 		}
 
@@ -45,28 +49,68 @@ namespace core
 
 		}
 
-		template<class ...Args>std::shared_ptr<T> create(Args ...args)
+		static CObjectPool<T>* Instance()
 		{
-			while (_freeObjects.empty())
-				assignObjs(INIT_OBJECT_SIZE);
-			T* ptr = _freeObjects.front();
-			_freeObjects.pop_front();
-			ptr->setUsing(true);
+			if (_instance == nullptr)
+				_instance = new CObjectPool<T>();
+			return _instance;
+		}
+
+		static CObjectPool<T>* Instance(CObjectPool<T>* o)
+		{
+			assert(_instance == nullptr);
+			_instance = o;
+			return _instance;
+		}
+		
+		/*template<class ...Args>
+		T* create(const Args& ...args)
+		{
+			auto ptr = popObject();
+			ptr->onAwake(args...);
+			return ptr;
+		}*/
+
+		template<class ...Args>
+		T* create(Args&& ...args)
+		{
+			auto ptr = popObject();
 			ptr->onAwake(std::forward<Args>(args)...);
-			++_useCount;
-			--_freeCount;
+			return ptr;
+		}
+
+		//template<class ...Args>
+		//std::shared_ptr<T> createShare(const Args& ...args)
+		//{
+		//	auto ptr = popObject();
+		//	ptr->onAwake(args...);
+		//	return std::shared_ptr<T>(ptr, [this](T* ptr) { this->recycle(ptr); });
+		//}
+
+		template<class ...Args>
+		std::shared_ptr<T> createShare(Args&& ...args)
+		{
+			core_log_info("createShare");
+			auto ptr = popObject();
+			ptr->onAwake(std::forward<Args>(args)...);
 			return std::shared_ptr<T>(ptr, [this](T* ptr) { this->recycle(ptr); });
 		}
 
-		void printInfo()
+		/*template<class ...Args>
+		std::unique_ptr<T, Deleter> createUnique(const Args& ...args)
 		{
-			core_log_info(typeid(T).name(), "user:", _useCount, "free:", _freeCount);
-		}
+			auto ptr = popObject();
+			ptr->onAwake(args...);
+			return std::unique_ptr<T, Deleter>(ptr, [this](T* ptr) { this->recycle(ptr); });
+		}*/
 
-	private:
-		List _freeObjects;
-		int32 _useCount;
-		int32 _freeCount;
+		template<class ...Args>
+		std::unique_ptr<T, Deleter> createUnique(Args&& ...args)
+		{
+			auto ptr = popObject();
+			ptr->onAwake(std::forward<Args>(args)...);
+			return std::unique_ptr<T, Deleter>(ptr, [this](T* ptr) { this->recycle(ptr); });
+		}
 
 		void recycle(T* ptr) {
 			if (ptr && ptr->isUsing()) {
@@ -78,6 +122,31 @@ namespace core
 			}
 		}
 
+		void printInfo()
+		{
+			core_log_info(typeid(T).name(), "using:", _useCount, "free:", _freeCount);
+		}
+
+	private:
+		static CObjectPool<T>* _instance;
+
+		List _freeObjects;
+		int32 _useCount;
+		int32 _freeCount;
+		int32 _assignSize;
+
+		T* popObject()
+		{
+			while (_freeObjects.empty())
+				assignObjs(_assignSize);
+			T* ptr = _freeObjects.front();
+			_freeObjects.pop_front();
+			ptr->setUsing(true);
+			++_useCount;
+			--_freeCount;
+			return ptr;
+		}
+
 		void assignObjs(int32 amount) {
 			for (int32 i = 0; i < amount; ++i, ++_freeCount)
 				_freeObjects.push_back(new T());
@@ -87,16 +156,19 @@ namespace core
 	template<class T>
 	const typename CObjectPool<T>::Iterator CObjectPool<T>::NullIter = CObjectPool<T>::Iterator();
 
+	template<class T>
+	CObjectPool<T>* CObjectPool<T>::_instance = nullptr;
 
 	class CPoolObject
 	{
-		bool _using;
 	public:
 		CPoolObject() :_using(false) {}
 
 		void setUsing(bool use) { _using = use; };
 
 		bool isUsing() const { return _using; }
+	protected:
+		bool _using;
 	};
 
 }
