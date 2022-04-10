@@ -59,11 +59,13 @@ int32 echoClient(char* ip, int32 port)
 				cout << "shutdown error" << endl;
 			}
 		}
+        message[10] = 0;
         cout << "messagelen:" << strlen(message) << endl;
         while (true)
         {
             int32 cnt = write(sock, message, strlen(message));
             cout << "write:" << cnt << endl;
+            break;
         }
         str_len = read(sock, message, BUF_SIZE - 1);
         message[str_len] = 0;
