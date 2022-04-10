@@ -52,4 +52,10 @@ public:
 	double _valueDbT;
 };
 
+class ObjectS : public ObjectBase, public ObjectOther
+{
+public:
+
+};
+
 void testObject();

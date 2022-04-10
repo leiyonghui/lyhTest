@@ -7,6 +7,8 @@
 
 void testbuff();
 
+void testbuff();
+
 void testChrono();
 
 void testTimer();
@@ -14,6 +16,8 @@ void testTimer();
 void testTimer2();
 
 void testPool();
+
+void testShare();
 
 class Father {
 public:

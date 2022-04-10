@@ -69,15 +69,7 @@ void print_f(int32 a, Args ...args)
 
 int main()
 {	
-	print_f(1, 2, 3);
-	int32 *pt = new int32(1);
-	{
-		std::shared_ptr<int32> p(pt/*, [](int32 *p) {
-			cout << "........" << endl;
-		}*/);
-		std::make_shared<int32>();
-	}
-	cout << *pt << endl;
+	testObject();
     system("pause");
     return 0;
 }

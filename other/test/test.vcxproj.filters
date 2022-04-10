@@ -5,6 +5,7 @@
     <ClCompile Include="testtimer.cpp" />
     <ClCompile Include="testBuff.cpp" />
     <ClCompile Include="testchrono.cpp" />
+    <ClCompile Include="testshared.cpp" />
     <ClCompile Include="testPool.cpp" />
   </ItemGroup>
   <ItemGroup>

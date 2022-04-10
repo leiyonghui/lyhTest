@@ -79,20 +79,60 @@ public:
 	}
 };
 
-using der = std::function<void(F2*)>;
-
-std::unique_ptr<F2, der> create()
+class Base
 {
-	return std::unique_ptr<F2, der>(new F2, [](F2* a) { delete a; });
+public:
+	virtual void fun(int32 a)
+	{
+		cout << "int" << endl;
+	}
+
+	void fun(double a, int32 b)
+	{
+	}
+
+	virtual void fun(double a)
+	{
+		cout << "double" << endl;
+	}
+
+};
+
+class SBace : public Base
+{
+public:
+	virtual void fun(int32 a)//»á°Ñfun(a,b)¸²¸Ç
+	{
+		cout << "sint" << endl;
+	}
+
+	virtual void fun(double a) override
+	{
+		cout << "sdouble" << endl;
+	}
+};
+
+#include <variant>
+
+constexpr int getindex(int32 i);
+
+constexpr int getindex(int32 i)
+{
+	if (i == 0)
+	{
+		return 1;
+	}
+}
+
+template<int A>
+void tt()
+{
+	cout << A << endl;
 }
 
 int main()
 {
-	//auto a = CObjectPool<A>::Instance()->create();
-	//testPool();
-	//CObjectPool<A>::Instance()->recycle(a);
-	//CObjectPoolMonitor::showInfo();
-	testPool();
+	testShare();
     system("pause");
     return 0;
 }
