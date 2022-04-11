@@ -15,6 +15,7 @@
 #include <iostream>
 #include <list>
 #include "headers.h"
+#include "template.h"
 
 using namespace core;
 using namespace std;
@@ -67,9 +68,21 @@ void print_f(int32 a, Args ...args)
 	print_f(args...);
 }
 
+class SS
+{
+public:
+	static int ss;
+	static int sss;
+	static char* s;
+};
+int SS::ss = 1;
+int SS::sss = 1;
+
 int main()
 {	
-	testObject();
+	CName<&SS::ss> a;
+	CName<&SS::sss> b;
+	cout << typeid(a).name()<<"   "<< typeid(b).name() << endl;
     system("pause");
     return 0;
 }

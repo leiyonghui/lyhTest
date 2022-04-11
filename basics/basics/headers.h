@@ -3,6 +3,8 @@
 #include <map>
 #include <set>
 #include <vector>
+#include <string.h>
+#include <string>
 #include "object.h"
 
 using int32 = int;

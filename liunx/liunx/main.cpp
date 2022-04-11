@@ -1,7 +1,9 @@
 ﻿#include <cstdio>
+#include <list>
 
 int main()
 {
-    printf("%s 向你问好!\n", "liunx");
+	std::list<int> li;
+	li.size();
     return 0;
 }

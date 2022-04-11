@@ -104,4 +104,7 @@ void testObject()
 	PN(p1->_valueO);// = 2
 
 	PN(p1->_valueDbO);
+
+	ObjectOther O = ob;//调用 ObjectOther(const ObjectOther& o)拷贝构造
+	PN(O._valueO);
 }

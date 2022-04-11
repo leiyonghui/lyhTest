@@ -61,6 +61,18 @@ public:
 	}
 };
 
+class TimerSlot
+{
+	friend class TimerWheel;
+
+	CFastNode<TimerEvent*> _slot;
+public:
+	TimerSlot() : _slot(nullptr)
+	{
+
+	}
+};
+
 class TimerHander
 {
 	friend class TimerEvent;

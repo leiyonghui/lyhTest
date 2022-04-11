@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 class ObjectBase
 {
@@ -36,10 +37,18 @@ public:
 	double _valueDbC;
 };
 
+class ObjectS;
 class ObjectOther
 {
 public:
 	ObjectOther():_valueO(0),_valueDbO(0){}
+
+	ObjectOther(const ObjectOther& o) {
+		std::cout <<"o: "<< (long)(&o) << std::endl;
+		_valueO = o._valueO;
+		_valueDbO = o._valueDbO;
+	}
+
 	int _valueO;
 	double _valueDbO;
 };
@@ -55,7 +64,7 @@ public:
 class ObjectS : public ObjectBase, public ObjectOther
 {
 public:
-
+	ObjectS():ObjectBase(),ObjectOther(){}
 };
 
 void testObject();

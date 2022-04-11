@@ -31,6 +31,7 @@
     <ClInclude Include="..\..\include\core\List.h" />
     <ClInclude Include="..\..\include\core\SharedPrt.h" />
     <ClInclude Include="..\..\include\core\SkipList.h" />
+    <ClInclude Include="..\..\include\core\TimerSet.h" />
     <ClInclude Include="..\..\include\core\TimerWheel.h" />
     <ClInclude Include="..\..\include\core\Types.h" />
     <ClInclude Include="..\..\include\core\Util.h" />

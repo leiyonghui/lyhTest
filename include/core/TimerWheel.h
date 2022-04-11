@@ -6,18 +6,6 @@
 
 namespace timerwheel
 {
-    class TimerSlot
-    {
-        friend class TimerWheel;
-
-        CFastNode<TimerEvent*> _slot;
-    public:
-        TimerSlot(): _slot(nullptr)
-        {
-
-        }
-    };
-
 #define WHEEL_SIZE 256
 #define BIT_SIZE 8
 #define SLOT_SIZE 8

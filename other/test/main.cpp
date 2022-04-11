@@ -132,7 +132,8 @@ void tt()
 
 int main()
 {
-	testShare();
+	std::list<int> li;
+	li.size();
     system("pause");
     return 0;
 }

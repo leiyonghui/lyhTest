@@ -39,6 +39,7 @@
     <ClInclude Include="objectpool.h" />
     <ClInclude Include="operation.h" />
     <ClInclude Include="StdPtr.h" />
+    <ClInclude Include="template.h" />
     <ClInclude Include="Thread.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

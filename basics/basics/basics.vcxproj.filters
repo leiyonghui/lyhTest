@@ -22,5 +22,6 @@
     <ClInclude Include="destructor.h" />
     <ClInclude Include="headers.h" />
     <ClInclude Include="objectpool.h" />
+    <ClInclude Include="template.h" />
   </ItemGroup>
 </Project>
