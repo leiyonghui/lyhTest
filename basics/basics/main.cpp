@@ -80,9 +80,12 @@ int SS::sss = 1;
 
 int main()
 {	
-	CName<&SS::ss> a;
-	CName<&SS::sss> b;
-	cout << typeid(a).name()<<"   "<< typeid(b).name() << endl;
+	char b[10];
+	memset(b, 0, sizeof(char) * 10);
+	*((float*)(b)) = 1.1;
+	float d;
+	d = *((float*)(b));
+	cout << d <<"  "<< endl;
     system("pause");
     return 0;
 }

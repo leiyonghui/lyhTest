@@ -63,7 +63,7 @@ public:
 
 class TimerSlot
 {
-	friend class TimerWheel;
+	friend class timerwheel::TimerWheel;
 
 	CFastNode<TimerEvent*> _slot;
 public:
