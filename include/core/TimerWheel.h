@@ -4,47 +4,54 @@
 #include <assert.h>
 #include "Timers.h"
 
-namespace timerwheel
+namespace core
 {
+	namespace timerwheel
+	{
 #define WHEEL_SIZE 256
 #define BIT_SIZE 8
 #define SLOT_SIZE 8
 #define WHEEL_MASK 255
 #define SLOT_INDEX(n,i) ((uint64(n) >> (i * 8)) & WHEEL_MASK)
 
-    class TimerWheel : public IScheduler
-    {
-        Tick _curTick;
-        Tick _interval;
-        Tick _remainder;
-        Tick _lasttime;
-        uint64 _expend;
-        uint64 _executeCount;
-        TimerSlot _slot[SLOT_SIZE][WHEEL_SIZE];
-    public:
-        TimerWheel(Tick interval = 1);
+		class TimerWheel : public IScheduler
+		{
+		public:
+			TimerWheel(Tick interval = 1);
 
-        Tick tick() { return _curTick; };
+			virtual ~TimerWheel();
 
-        void addTimer(TimerEvent* event) override;
+			Tick tick() { return _curTick; };
 
-        void delTimer(TimerEvent* event) override;
+			void addTimer(TimerEvent* event) override;
 
-        void update(Tick now) override;
+			void delTimer(TimerEvent* event) override;
 
-        uint64 expend() { return _expend; };
+			void update(Tick now) override;
 
-        uint64 executeCount() { return _executeCount; };
+			uint64 expend() { return _expend; };
 
-    private:
-        void _onTimeout(TimerEvent* event);
+			uint64 executeCount() { return _executeCount; };
 
-        void _addTimer(TimerEvent* event);
+		private:
+			void _onTimeout(TimerEvent* event);
 
-        void _delTimer(TimerEvent* event);
+			void _addTimer(TimerEvent* event);
 
-        void _updateSlot(int32 i);
+			void _delTimer(TimerEvent* event);
 
-        void _update();
-    };
+			void _updateSlot(int32 i);
+
+			void _update();
+		private:
+			Tick _curTick;
+			Tick _interval;
+			Tick _remainder;
+			Tick _lasttime;
+			uint64 _expend;
+			uint64 _executeCount;
+			TimerSlot _slot[SLOT_SIZE][WHEEL_SIZE];
+			std::list<TimerEvent*> _invalidEvents;
+		};
+	}
 }

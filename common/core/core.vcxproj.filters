@@ -62,6 +62,7 @@
     <ClCompile Include="RingBuff.cpp" />
     <ClCompile Include="TimeHelp.cpp" />
     <ClCompile Include="ObjectPools.cpp" />
+    <ClCompile Include="TimerSet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">

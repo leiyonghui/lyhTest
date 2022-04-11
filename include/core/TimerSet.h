@@ -1,37 +1,48 @@
-#include "Configs.h"
 #include "Timers.h"
 
-namespace tset
+namespace core
 {
-	class TimerSet : public IScheduler
+	namespace timerset
 	{
-	public:
-		virtual Tick tick() override { return _curTick; };
-
-		virtual void update(Tick now) override { _update(now); };
-
-		virtual void addTimer(TimerEvent* event) override { _addTimer(event); };
-
-		virtual void delTimer(TimerEvent* event) override { _delTimer(event); };
-
-	protected:
-		void _update(Tick now)
+		class TimerSet : public IScheduler
 		{
+		public:
+			TimerSet();
 
-		}
+			virtual ~TimerSet();
 
-		void _addTimer(TimerEvent* event)
+			virtual Tick tick() override;
+
+			virtual void update(Tick now) override;
+
+			virtual void addTimer(TimerEvent* event) override;
+
+			virtual void delTimer(TimerEvent* event) override;
+
+		protected:
+			TimerSetImpl* _timer;
+		};
+
+		class TimerSetImpl
 		{
+			friend class TimerSet;
+		protected:
+			TimerSetImpl() :_curTick(0) {}
 
-		}
+			virtual ~TimerSetImpl();
 
-		void _delTimer(TimerEvent* event)
-		{
+			void _update(Tick now);
 
-		}
+			void _addTimer(TimerEvent* event);
 
-	private:
-		std::map<int64, TimerSlot*> queue;
-		Tick _curTick;
-	};
+			void _delTimer(TimerEvent* event);
+
+			void _onTimeout(TimerEvent* event);
+
+		private:
+			Tick _curTick;
+			std::map<Tick, TimerSlot*> _queue;
+			std::list<TimerEvent*> _invalidEvents;
+		};
+	}
 }

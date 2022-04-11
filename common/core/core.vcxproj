@@ -44,6 +44,7 @@
     <ClCompile Include="Shared.cpp" />
     <ClCompile Include="TimeHelp.cpp" />
     <ClCompile Include="Timers.cpp" />
+    <ClCompile Include="TimerSet.cpp" />
     <ClCompile Include="TimerWheel.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>

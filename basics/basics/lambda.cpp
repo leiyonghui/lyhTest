@@ -1,5 +1,5 @@
 #include "lambda.h"
-#include "core/Types.h"
+#include "core/Configs.h"
 #include <iostream>
 
 using namespace std;
@@ -35,7 +35,19 @@ TEST(problem1)
 // C++11 通过手写类或 std::bind 来模拟初始化捕获。
 TEST(problem2)
 {
+    
+}
 
+void test3(int32 a, std::function<void()>)
+{
+
+}
+TEST(problem3)
+{
+    int32 id = 0;
+    test3(++id, [id]() {
+        cout << id << endl;// = 0
+    });
 }
 
 void testLambad()

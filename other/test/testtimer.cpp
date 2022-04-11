@@ -1,8 +1,9 @@
 #pragma once
-
+#include "core/Configs.h"
 #include "core/TimeHelp.h"
 #include "core/Timers.h"
 #include "core/TimerWheel.h"
+#include "core/TimerSet.h"
 #include "core/Types.h"
 #include <iostream>
 #include <assert.h>
@@ -17,45 +18,54 @@ using namespace std;
 
 using Tick = unsigned long long;
 using TimerWheel = timerwheel::TimerWheel;
+using TimerSet = timerset::TimerSet;
 using std::chrono::system_clock;
 using namespace std::literals;
 
-inline void testTimer()
+void testTimer()
 {
     int64 id = 0;
     std::map<int32, TimerEvent*> Map;
-    TimerWheel* wheel = new TimerWheel();
+//#define WHELL
+#ifdef WHELL
+	TimerWheel* wheel = new TimerWheel();
+#else
+	TimerSet* wheel = new TimerSet();
+#endif
     
     int64 maxTick = int64(1) * 24 * 60 * 60 * 1000;
     auto start = clock();
     cout << "add begin: " << "   maxtick: " << maxTick / (60 * 1000) << "minute" << endl;
 
     uint64 lastTick = 0;
-    TimerEvent* event1 = new TimerEvent(++id, nullptr, uint64(887), uint64(887), 1, [wheel, id, &lastTick, &Map]() {
+    id++;
+    TimerEvent* event1 = new TimerEvent(id, nullptr, uint64(887), uint64(887), 1, [wheel, id, &lastTick, &Map]() {
         auto event = Map[id];
         assert(lastTick <= event->tick());
         lastTick = event->tick();
-    });
+    }, false);
     Map[id] = event1;
-    TimerEvent* event2 = new TimerEvent(++id, NULL, 7, 7, 100, [wheel, &Map, id, &lastTick]() {
+    id++;
+    TimerEvent* event2 = new TimerEvent(id, NULL, 7, 7, 100, [wheel, &Map, id, &lastTick]() {
         //cout << "duration2  " << wheel->tick() << endl;
         auto event = Map[id];
         assert(lastTick <= event->tick());
         lastTick = event->tick();
-    });
+    }, false);
     Map[id] = event2;
     wheel->addTimer(event1);
     wheel->addTimer(event2);
 
     for (int32 i = 1; i < 12000; i+= 347)
     {
-        TimerEvent* event = new TimerEvent(++id, NULL, i, i, 1, [wheel, i, id, &Map, &lastTick]() {
+        id++;
+        TimerEvent* event = new TimerEvent(id, NULL, i, i, 1, [wheel, i, id, &Map, &lastTick]() {
             
             auto event = Map[id];
             assert(lastTick <= event->tick());
             lastTick = event->tick();
 
-        });
+        }, false);
         wheel->addTimer(event);
         Map[id] = event;
     }
@@ -63,7 +73,8 @@ inline void testTimer()
     int64 last = 0;
     for (int64 i = 1; i <= maxTick; i += 997)
     {
-        TimerEvent* event1 = new TimerEvent(++id, NULL, i, 0, 1, [i, &last, id, &Map, &lastTick]() {
+        ++id;
+        TimerEvent* event1 = new TimerEvent(id, NULL, i, 0, 1, [i, &last, id, &Map, &lastTick]() {
 
             assert(i - last == 997 || i == 1);
             last = i;
@@ -71,7 +82,9 @@ inline void testTimer()
             auto event = Map[id];
             assert(lastTick <= event->tick());
             lastTick = event->tick();
-        });
+
+
+        }, false);
         Map[id] = event1;
         wheel->addTimer(event1);
     }
@@ -94,6 +107,7 @@ inline void testTimer()
     uint64 expend = 0;
     uint64 executeCount = 0;
     uint64 executeExpend = 0;
+    cout << "totalEvent: " << TimerEvent::TotalEvent << endl;
     while (++tick <= maxTick)
     {
         uint64 start = clock();
@@ -102,12 +116,14 @@ inline void testTimer()
         uint64 value = finish - start;
         sum += value;
         maxv = value > maxv ? value : maxv;
-        if (expend < wheel->expend()) 
+#ifdef WHELL
+        if (expend < wheel->expend())
         {
             expend = max(expend, wheel->expend());
             executeExpend = wheel->executeCount();
         }
         executeCount = max(executeCount, wheel->executeCount());
+#endif // WHELL
     }
     cout << "sum:"<<sum
         <<"  ave: "<< sum/tick
@@ -116,6 +132,8 @@ inline void testTimer()
         <<"  expendEx: "<< executeExpend 
         <<"  maxExecute: "<< executeCount 
     << endl;
+
+	cout << "totalEvent: " << TimerEvent::TotalEvent << endl;
 
     {
         // 基于当前系统的当前日期/时间
@@ -133,8 +151,12 @@ void NOW(string str)
 
 void testTimer2()
 {
-    TimerWheel* wheel = new TimerWheel();
-    TimerHander* hander = new TimerHander(wheel);
+#ifdef WHELL
+	TimerWheel* wheel = new TimerWheel();
+#else
+    TimerSet* wheel = new TimerSet();
+#endif
+	TimerHander* hander = new TimerHander(wheel);
 
 
     CheckTime check;
@@ -142,20 +164,24 @@ void testTimer2()
 
     auto now = system_clock::now();
 	int64 id;
-    id = hander->addTimer(now + 100ms, 1000ms, 5, [hander, &id]() {
-		hander->cancel(id);
+    int32 sum = 0;
+	TimeHelp::StartUp();
+    id = hander->addTimer(100ms, 1000ms, 5, [hander, &id, &sum]() {
+        sum++;
+        if (sum == 3)
+        {
+		    hander->cancel(id);
+        }
         NOW("----time1");
     });
 
     int32 tick = 0, maxTick = 7 * 1000;
-    //chrono::milliseconds last = TimeHelp::clock_ms();
-	TimeHelp::StartUp();
     while (++tick <= maxTick)
     {
         Sleep(1);
         auto now = TimeHelp::clock_ms();
         wheel->update(now.count());
     }
-
+    cout << TimerEvent::TotalEvent << endl;
     check.CheckPoint("1");
 }
