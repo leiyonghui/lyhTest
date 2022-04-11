@@ -67,7 +67,7 @@ int32 echoEpollServ(int32 port)
     memset(&serv_adr, 0, sizeof(serv_adr));
     serv_adr.sin_family = AF_INET;
     serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
-    serv_adr.sin_port = htons(port);
+    serv_adr.sin_port = htons(9802);
 
     if (bind(serv_sock, (struct sockaddr*)&serv_adr, sizeof(serv_adr)) == -1)
         error_handling("bind() error");
@@ -103,7 +103,7 @@ int32 echoEpollServ(int32 port)
                 adr_sz = sizeof(clnt_adr);
                 clnt_sock =
                     accept(serv_sock, (struct sockaddr*)&clnt_adr, &adr_sz);
-                event.events = EPOLLIN /*| EPOLLOUT*/ | EPOLLET;
+                event.events = EPOLLIN /*| EPOLLOUT*//* | EPOLLET*/;
                 event.data.fd = clnt_sock;
                 epoll_ctl(epfd, EPOLL_CTL_ADD, clnt_sock, &event);
                 setBuffSize(clnt_sock, 100, 10);
@@ -115,8 +115,8 @@ int32 echoEpollServ(int32 port)
                 cout << " -- in:" << str_len << endl;
                 if (str_len == 0)    // close request!
                 {
-                    epoll_ctl(
-                        epfd, EPOLL_CTL_DEL, ep_events[i].data.fd, NULL);
+					epoll_ctl(
+						epfd, EPOLL_CTL_DEL, ep_events[i].data.fd, NULL);
                     //close(ep_events[i].data.fd);
                     printf("closed client: %d \n", ep_events[i].data.fd);
                 }
@@ -167,6 +167,7 @@ int32 echoEpollServ(int32 port)
     return 0;
 }
 /*
+水平触发：
 1:接收队列有值，而且这时候对方发送Fin包过来，此时接收队列会多一个值， 此时epoll是IN。如果这时候write的话下次会出现ERR 和 HUP
 ps: 会先读完所有值后再read=0。
 
