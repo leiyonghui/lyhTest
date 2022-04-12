@@ -23,17 +23,6 @@ using namespace std;
 //using namespace std::chrono;
 //using namespace std::literals;
 
-class AA {
-
-public:
-	AA(int bb, bool dd):b(bb), d(dd) {
-
-	}
-
-	int b;
-	bool d;
-};
-
 /*
 	using arg = std::variant<int, bool>;
 	auto tp = std::make_tuple(1, 2);
@@ -68,24 +57,20 @@ void print_f(int32 a, Args ...args)
 	print_f(args...);
 }
 
-class SS
-{
-public:
-	static int ss;
-	static int sss;
-	static char* s;
-};
-int SS::ss = 1;
-int SS::sss = 1;
 
 int main()
 {	
-	char b[10];
-	memset(b, 0, sizeof(char) * 10);
-	*((float*)(b)) = 1.1;
-	float d;
-	d = *((float*)(b));
-	cout << d <<"  "<< endl;
+	double b = 2.22;
+	LongWithDouble c;
+	c._double = b;
+	cout << b <<" "<<c._long << endl;
+
+	uint64 d = BYTESWAP64(c._long);
+	
+	LongWithDouble f;
+	f._long = BYTESWAP64(d);
+
+	cout << f._double << endl;
     system("pause");
     return 0;
 }

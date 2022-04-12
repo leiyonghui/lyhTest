@@ -22,6 +22,7 @@
     <ClCompile Include="byte.cpp" />
     <ClCompile Include="constructor.cpp" />
     <ClCompile Include="destructor.cpp" />
+    <ClCompile Include="hton.cpp" />
     <ClCompile Include="lambda.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="object.cpp" />

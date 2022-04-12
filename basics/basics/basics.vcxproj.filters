@@ -10,6 +10,7 @@
     <ClCompile Include="StdPtr.cpp" />
     <ClCompile Include="destructor.cpp" />
     <ClCompile Include="upper.cpp" />
+    <ClCompile Include="hton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="byte.h" />
