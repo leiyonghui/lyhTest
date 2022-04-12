@@ -56,7 +56,7 @@ namespace core
 			TotalEvent++;
 		}
 
-		~TimerEvent();
+		virtual ~TimerEvent();
 
 		void onTimeout()
 		{
@@ -100,9 +100,9 @@ namespace core
 		TimerHander(const TimerHander&) = delete;
 		TimerHander operator=(const TimerHander&) = delete;
 	public:
-		TimerHander(IScheduler* IScheduler) : _nextId(0), _scheduler(IScheduler) {}
+		TimerHander(IScheduler* scheduler) : _nextId(0), _scheduler(scheduler) {}
 
-		~TimerHander()
+		virtual ~TimerHander()
 		{
 			cancel();
 		}
@@ -113,21 +113,15 @@ namespace core
 
 		int64 addTimer(Datetime time, Duration duration, int32 count, TimeoutCallback&& callback);
 
+		int64 addTimer(Duration delay, Duration duration, TimeoutCallback&& callback);
+
+		int64 addTimer(Datetime time, Duration duration, TimeoutCallback&& callback);
+
 		bool cancel(int64 id);
 
 		void cancel();
 
-		int64 nextId()
-		{
-			while (++_nextId)
-			{
-				if (_nextId && (int)_timerMap.count(_nextId) == 0)
-				{
-					return _nextId;
-				}
-			}
-			return 0;
-		}
+		int64 nextId() { return ++_nextId; }
 	};
 
 

@@ -16,6 +16,7 @@
 #include <list>
 #include "headers.h"
 #include "template.h"
+#include "core/common.h"
 
 using namespace core;
 using namespace std;
@@ -61,16 +62,14 @@ void print_f(int32 a, Args ...args)
 int main()
 {	
 	double b = 2.22;
-	LongWithDouble c;
-	c._double = b;
-	cout << b <<" "<<c._long << endl;
+	auto b1 = hostToNetwrokdouble(b);
+	auto b2 = networkToHostdouble(b1);
+	cout << b1<<"  "<<b2 << endl;
 
-	uint64 d = BYTESWAP64(c._long);
-	
-	LongWithDouble f;
-	f._long = BYTESWAP64(d);
-
-	cout << f._double << endl;
+	float f = 56.6666;
+	auto f1 = hostToNetwrokfloat(f);
+	auto f2 = networkToHostfloat(f1);
+	cout << f1 << " " << f2 << endl;
     system("pause");
     return 0;
 }

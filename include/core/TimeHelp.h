@@ -42,6 +42,7 @@ std::chrono::time_point:
 #include <string>
 #include <map>
 
+using namespace std::literals::chrono_literals;
 class TimeHelp
 {
 public:

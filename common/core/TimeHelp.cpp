@@ -1,10 +1,10 @@
 ﻿#include "TimeHelp.h"
 #include <iostream>
 #include <sstream>
-
 using namespace std;
 using system_clock = std::chrono::system_clock;
 using steady_clock = std::chrono::steady_clock;
+using namespace std::literals;
 
 std::chrono::time_point<steady_clock> TimeHelp::START_CLOCK = steady_clock::now();
 
