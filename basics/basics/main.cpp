@@ -20,56 +20,10 @@
 
 using namespace core;
 using namespace std;
-//using namespace std;
-//using namespace std::chrono;
-//using namespace std::literals;
-
-/*
-	using arg = std::variant<int, bool>;
-	auto tp = std::make_tuple(1, 2);
-	std::apply([](auto&& ...args) {
-		((cout << args << " "), ...) << endl;
-		}, tp);
-	auto aa = std::make_from_tuple<AA>(std::move(tp));
-	cout << aa.b << "   " << aa.d << endl;
-	std::vector<std::tuple<arg, arg, arg, arg>> a;
-*/
-
-template<class T>
-class object
-{
-	typedef std::list<T*> List;
-
-	template<class ...Args>
-	std::shared_ptr<T> get(Args&& ...args) {
-		return std::shared_ptr<T>(new T(std::move(args)...));
-	}
-};
-
-void print_f(int a)
-{
-	cout << " a " << a;
-}
-
-template<class ...Args>
-void print_f(int32 a, Args ...args)
-{
-	cout << a << " ";
-	print_f(args...);
-}
 
 
 int main()
 {	
-	double b = 2.22;
-	auto b1 = hostToNetwrokdouble(b);
-	auto b2 = networkToHostdouble(b1);
-	cout << b1<<"  "<<b2 << endl;
-
-	float f = 56.6666;
-	auto f1 = hostToNetwrokfloat(f);
-	auto f2 = networkToHostfloat(f1);
-	cout << f1 << " " << f2 << endl;
     system("pause");
     return 0;
 }
