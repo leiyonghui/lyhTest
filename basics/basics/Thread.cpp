@@ -1,8 +1,5 @@
-#include "Thread.h"
+#include "headers.h"
 #include <thread>
-#include <iostream>
-#include <memory>
-#include <functional>
 #include <chrono>
 
 using namespace std;
@@ -112,8 +109,12 @@ namespace example2
 }
 
 
-void testThread()
+namespace testthread
 {
-    //example1();
-	example2::example2();
+	void testThread()
+	{
+		//example1();
+		example2::example2();
+	}
 }
+

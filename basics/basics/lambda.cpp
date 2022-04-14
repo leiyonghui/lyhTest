@@ -1,6 +1,4 @@
-#include "lambda.h"
-#include "core/Configs.h"
-#include <iostream>
+#include "headers.h"
 
 using namespace std;
 using namespace core;
@@ -42,6 +40,7 @@ void test3(int32 a, std::function<void()>)
 {
 
 }
+
 TEST(problem3)
 {
     int32 id = 0;
@@ -50,7 +49,12 @@ TEST(problem3)
     });
 }
 
-void testLambad()
+
+namespace lambad
 {
-    problem1();
+	void testLambad()
+	{
+		problem1();
+	}
 }
+

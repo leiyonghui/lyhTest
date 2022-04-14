@@ -1,23 +1,6 @@
-
-#include <iostream>
-#include <windows.h>
-#include <memory>
-#include <string.h>
-#include "testlist.hpp"
 #include "headers.h"
-#include <set>
-#include <map>
-#include "core/TimeHelp.h"
-#include <ctime>
-#include <core/Loger.h>
-#include <functional>
-#include <windows.h>
-#include "core/ObjectPools.h"
-#include "core/common.h"
-#include <list>
-#pragma comment(lib, "wsock32.lib")
-using namespace std;
-using namespace core;
+#include "testlist.hpp"
+
 
 using func = std::function<void()>;
 

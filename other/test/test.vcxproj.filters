@@ -11,5 +11,6 @@
   <ItemGroup>
     <ClInclude Include="testlist.hpp" />
     <ClInclude Include="headers.h" />
+    <ClInclude Include="configs.h" />
   </ItemGroup>
 </Project>

@@ -4,7 +4,6 @@
 #include "core/Timers.h"
 #include "core/TimerWheel.h"
 #include "core/TimerSet.h"
-#include "core/Types.h"
 #include <iostream>
 #include <assert.h>
 #include <windows.h>
@@ -107,7 +106,7 @@ void testTimer()
     uint64 expend = 0;
     uint64 executeCount = 0;
     uint64 executeExpend = 0;
-    cout << "totalEvent: " << TimerEvent::TotalEvent << endl;
+    //cout << "totalEvent: " << TimerEvent::TotalEvent << endl;
     while (++tick <= maxTick)
     {
         uint64 start = clock();
@@ -133,7 +132,7 @@ void testTimer()
         <<"  maxExecute: "<< executeCount 
     << endl;
 
-	cout << "totalEvent: " << TimerEvent::TotalEvent << endl;
+	//cout << "totalEvent: " << TimerEvent::TotalEvent << endl;
 
     {
         // 基于当前系统的当前日期/时间
@@ -182,6 +181,6 @@ void testTimer2()
         auto now = TimeHelp::clock_ms();
         wheel->update(now.count());
     }
-    cout << TimerEvent::TotalEvent << endl;
+    //cout << TimerEvent::TotalEvent << endl;
     check.CheckPoint("1");
 }

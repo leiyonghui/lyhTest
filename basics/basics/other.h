@@ -1,4 +1,4 @@
-#include "core/Configs.h"
+#include "configs.h"
 
 namespace permission
 {

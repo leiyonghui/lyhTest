@@ -11,18 +11,13 @@
     <ClCompile Include="destructor.cpp" />
     <ClCompile Include="upper.cpp" />
     <ClCompile Include="hton.cpp" />
+    <ClCompile Include="other.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="byte.h" />
-    <ClInclude Include="constructor.h" />
     <ClInclude Include="object.h" />
-    <ClInclude Include="lambda.h" />
     <ClInclude Include="operation.h" />
-    <ClInclude Include="Thread.h" />
-    <ClInclude Include="StdPtr.h" />
-    <ClInclude Include="destructor.h" />
     <ClInclude Include="headers.h" />
-    <ClInclude Include="objectpool.h" />
     <ClInclude Include="template.h" />
+    <ClInclude Include="configs.h" />
   </ItemGroup>
 </Project>

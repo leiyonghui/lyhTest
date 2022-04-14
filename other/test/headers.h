@@ -1,11 +1,5 @@
 #pragma once
-#include <iostream>
-#include "core/ObjectPools.h"
-#include "core/Configs.h"
-
-#define TEST(NAME) void test_##NAME()
-
-void testbuff();
+#include "configs.h"
 
 void testbuff();
 

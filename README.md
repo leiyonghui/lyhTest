@@ -1,2 +1,2 @@
 # lyhTest
-Study AND Test
+study and test

@@ -1,8 +1,5 @@
-#include "StdPtr.h"
-#include  <memory>
-#include <iostream>
-using int32 = int;
-using namespace std;
+#include "headers.h"
+
 class AA : public  std::enable_shared_from_this<AA> {
 public:
 
@@ -12,10 +9,15 @@ public:
 	}
 };
 
-void testShare()
+
+namespace share
 {
-	AA* p = new AA;
-	std::shared_ptr<AA> pt(p);//必须先执行share
-	std::shared_ptr<AA> pt2 = p->shared_from_this();
-	std::shared_ptr<AA> pt3 = p->shared_from_this();
+	void testShare()
+	{
+		AA* p = new AA;
+		std::shared_ptr<AA> pt(p);//必须先执行share
+		std::shared_ptr<AA> pt2 = p->shared_from_this();
+		std::shared_ptr<AA> pt3 = p->shared_from_this();
+	}
 }
+

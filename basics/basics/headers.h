@@ -1,9 +1,27 @@
 #pragma once
-#include "core/Configs.h"
-#include "object.h"
+#include "configs.h"
 
-using namespace core;
+namespace byte
+{
+	void test();
+}
 
-void testUpper();
+namespace constructor
+{
+	void testConstructor();
+}
 
-void testhton();
+namespace destructor
+{
+	void testDestructor();
+}
+
+namespace lambad
+{
+	void testLambad();
+}
+
+namespace upper
+{
+	void testUpper();
+}
