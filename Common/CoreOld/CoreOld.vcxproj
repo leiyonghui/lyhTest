@@ -19,25 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\core\common.h" />
-    <ClInclude Include="..\..\include\core\Configs.h" />
-    <ClInclude Include="..\..\include\core\FastNode.h" />
-    <ClInclude Include="..\..\include\core\Loger.h" />
-    <ClInclude Include="..\..\include\core\ObjectPools.h" />
-    <ClInclude Include="..\..\include\core\RingBuff.h" />
-    <ClInclude Include="..\..\include\core\Singleton.h" />
-    <ClInclude Include="..\..\include\core\TimeHelp.h" />
-    <ClInclude Include="..\..\include\core\Timers.h" />
-    <ClInclude Include="..\..\include\core\List.h" />
-    <ClInclude Include="..\..\include\core\SharedPrt.h" />
-    <ClInclude Include="..\..\include\core\SkipList.h" />
-    <ClInclude Include="..\..\include\core\TimerSet.h" />
-    <ClInclude Include="..\..\include\core\TimerWheel.h" />
-    <ClInclude Include="..\..\include\core\Types.h" />
-    <ClInclude Include="..\..\include\core\Util.h" />
-    <ClInclude Include="..\..\include\core\Vector.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="List.cpp" />
     <ClCompile Include="ObjectPools.cpp" />
     <ClCompile Include="RingBuff.cpp" />
@@ -47,6 +28,25 @@
     <ClCompile Include="TimerSet.cpp" />
     <ClCompile Include="TimerWheel.cpp" />
     <ClCompile Include="Vector.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Include\CoreOld\common.h" />
+    <ClInclude Include="..\..\Include\CoreOld\Configs.h" />
+    <ClInclude Include="..\..\Include\CoreOld\FastNode.h" />
+    <ClInclude Include="..\..\Include\CoreOld\List.h" />
+    <ClInclude Include="..\..\Include\CoreOld\Loger.h" />
+    <ClInclude Include="..\..\Include\CoreOld\ObjectPools.h" />
+    <ClInclude Include="..\..\Include\CoreOld\RingBuff.h" />
+    <ClInclude Include="..\..\Include\CoreOld\SharedPrt.h" />
+    <ClInclude Include="..\..\Include\CoreOld\Singleton.h" />
+    <ClInclude Include="..\..\Include\CoreOld\SkipList.h" />
+    <ClInclude Include="..\..\Include\CoreOld\TimeHelp.h" />
+    <ClInclude Include="..\..\Include\CoreOld\Timers.h" />
+    <ClInclude Include="..\..\Include\CoreOld\TimerSet.h" />
+    <ClInclude Include="..\..\Include\CoreOld\TimerWheel.h" />
+    <ClInclude Include="..\..\Include\CoreOld\Types.h" />
+    <ClInclude Include="..\..\Include\CoreOld\Util.h" />
+    <ClInclude Include="..\..\Include\CoreOld\Vector.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -103,21 +103,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)libs\</OutDir>
-    <IntDir>$(SolutionDir)out\</IntDir>
+    <OutDir>..\..\libs</OutDir>
+    <IntDir>..\..\out\$(ProjectName)$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)libs\</OutDir>
-    <IntDir>$(SolutionDir)out\</IntDir>
+    <OutDir>..\..\libs</OutDir>
+    <IntDir>..\..\out\$(ProjectName)$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)libs\</OutDir>
-    <IntDir>$(SolutionDir)out\</IntDir>
+    <OutDir>..\..\libs</OutDir>
+    <IntDir>..\..\out\$(ProjectName)$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\libs</OutDir>
+    <IntDir>..\..\out\$(ProjectName)$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -168,7 +170,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>..\..\include\core</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Include\CoreOld</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -186,7 +188,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\..\include\core</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Include\CoreOld</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
