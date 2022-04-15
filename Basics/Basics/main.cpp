@@ -5,6 +5,7 @@
 
 int main()
 {	
+	testthread::testThread();
     system("pause");
     return 0;
 }

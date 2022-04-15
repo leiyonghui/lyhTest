@@ -25,3 +25,8 @@ namespace upper
 {
 	void testUpper();
 }
+
+namespace testthread
+{
+	void testThread();
+}

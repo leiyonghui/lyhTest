@@ -108,13 +108,43 @@ namespace example2
 	}
 }
 
+int32 a = 0;
+void doadd()
+{
+	for(int32 i = 1 ;i < 10000; i++)
+		++a;
+}
 
+namespace add
+{
+	void testadd()
+	{
+		//int32 a = 1;
+		auto th1 = std::thread(doadd/*[&a] {
+			for (int32 i = 1; i < 100000; i++)
+			{
+				++a;
+			}
+				
+		}*/);
+		auto th2 = std::thread(doadd/*[&a] {
+			for (int32 i = 1; i < 100000; i++)
+			{
+				++a;
+			}
+		}*/);
+		th1.join();
+		th2.join();
+		cout << a << endl;
+	}
+}
 namespace testthread
 {
 	void testThread()
 	{
+		add::testadd();
 		//example1();
-		example2::example2();
+		//example2::example2();
 	}
 }
 
