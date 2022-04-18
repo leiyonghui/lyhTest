@@ -173,7 +173,7 @@ ps: 会先读完所有值后再read=0。
 
 2：ERR的时候应该 readcallback 和 writecallback?
 
-3: 接收队列有值还有fin包, epoll还会 OUT 吗？会。所以这些event都是独立的？在没读到0关闭socket的时候如果还write就会brokepipe，
+3: 接收队列有值还有fin包, epoll还会 OUT 吗？会。这些event都是独立的 在没读到0关闭socket的时候如果还write就会brokepipe，
 当然服务器第一次往发送了fin的客户端（服务器已经收到fin包）发东西就会收到客户端的RST包。
 后面再发就是PIPE（通过在accpetor和in的地方断点重现）
 

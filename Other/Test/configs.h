@@ -1,7 +1,8 @@
 #pragma once
 #include "core/Configs.h"
-#include "core/ObjectPools.h"
 #include "core/Configs.h"
+#include "core/ObjectPools.h"
+#include "core/Common.h"
 #include <windows.h>
 
 #pragma comment(lib, "wsock32.lib")

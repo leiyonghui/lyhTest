@@ -19,11 +19,12 @@ public:
 	int f;
 };
 
-class A : public core::CPoolObject, public Father
+class CAObject : public core::CPoolObject, public Father
 {
 public:
 	int a;
 	std::map<int, int> mp;
+	std::unique_ptr<int32> ptr;
 
 	void onAwake(const std::map<int, int>& m) {
 		std::cout << "1--awake1 " << m.size() << std::endl;
@@ -35,6 +36,12 @@ public:
 		std::cout << "--awake1 "<< m.size() << std::endl;
 		mp = std::move(m);
 		std::cout << "--awake2 " << m.size() <<"  "<< mp.size() << std::endl;
+	}
+
+	void onAwake(std::unique_ptr<int32> p)
+	{
+		core_log_debug("======uni");
+		ptr = std::move(p);
 	}
 
 	void onRecycle()
