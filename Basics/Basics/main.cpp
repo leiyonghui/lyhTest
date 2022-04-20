@@ -6,9 +6,8 @@
 
 int main()
 {	
-	testthread::testThread();
-    core_log_error("ssss");
-    CRingBuff buff(12);
+	const int32& f = 12;
+    core_log_error("ssss", &f);
     system("pause");
     return 0;
 }

@@ -19,5 +19,6 @@
     <ClInclude Include="headers.h" />
     <ClInclude Include="template.h" />
     <ClInclude Include="configs.h" />
+    <ClInclude Include="类型推导.h" />
   </ItemGroup>
 </Project>

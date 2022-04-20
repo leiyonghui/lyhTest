@@ -37,6 +37,7 @@
     <ClInclude Include="object.h" />
     <ClInclude Include="operation.h" />
     <ClInclude Include="template.h" />
+    <ClInclude Include="类型推导.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
