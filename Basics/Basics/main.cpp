@@ -3,11 +3,11 @@
 #include "core/RingBuff.h"
 #include "headers.h"
 #include "template.h"
+#include "类型推导.h"
 
 int main()
 {	
-	const int32& f = 12;
-    core_log_error("ssss", &f);
+	t2::t();
     system("pause");
     return 0;
 }

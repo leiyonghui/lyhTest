@@ -1,6 +1,20 @@
 #pragma once
 #include "headers.h"
 
+class A
+{
+public:
+	A() = default ;
+
+	A(const A& a) {
+		cout << " left copy " << endl;
+	}
+
+	A(A&& a) {
+		cout << " right copy" << endl;
+	}
+};
+
 namespace t1
 {
 	template<class T>
@@ -37,6 +51,26 @@ namespace t2
 
 	int32 geta() { return 12; }
 
+	void fun3(A&& a)
+	{
+		A b = a;//left copy
+		A c = std::move(a);//right copy
+	}
+
+	void fun4(A&)
+	{
+
+	}
+
+	void fun5(const A&)
+	{
+
+	}
+
+	A getA() {
+		return A();
+	}
+
 	void t()
 	{
 		int32 a = 1;
@@ -54,14 +88,27 @@ namespace t2
 		fun1(f);
 		fun1(g);
 
-		//fun2(a);
-		//fun2(b);
-		//fun2(c);
-		//fun2(d);
-		//fun2(e);
-		//fun2(f);
-		//fun2(g);
+		//fun2(a);error
+		//fun2(b);error
+		//fun2(c);error
+		//fun2(d);error
+		//fun2(e);error
+		//fun2(f);error
+		//fun2(g);error
 		fun2(12);//<int>(const int&&)
+
+		A a2;
+		//fun3(aa);
+
+		//fun3(A());
+		//fun4(A());error
+		////fun5(A());
+
+		A a3 = std::move(a2);//right copy
+
+		A&& a4 = getA();
+		A a5 = a4;//left copy
+		A a6 = getA();
 	}
 }
 

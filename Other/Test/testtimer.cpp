@@ -173,6 +173,9 @@ void testTimer2()
         }
         NOW("----time1");
     });
+	auto t = std::bind(NOW, _1);
+	t("");
+	//hander->addTimer(1ms, 0ms, 5, std::bind(NOW));
 
     int32 tick = 0, maxTick = 7 * 1000;
     while (++tick <= maxTick)
