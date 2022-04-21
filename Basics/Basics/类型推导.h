@@ -17,6 +17,7 @@ public:
 
 namespace t1
 {
+	//带有&或者*的形参，将实参忽略&或者*进行匹配
 	template<class T>
 	void fun1(T& p){}
 
@@ -43,11 +44,17 @@ namespace t1
 
 namespace t2
 {
+	//右值引用
+
+	/*
+		非引用返回的临时变量，运算表达式产生的临时变量，原始字面变量和lambda表达式都是纯右值
+		无论左值引用还是右值引用都必须立即初始化，因为引用并不拥有所绑定变量的内存，通过右值引用的声明可以实临时变量重新复活
+	*/
 	template<class T>
-	void fun1(T&& p){}//T&&不确定引用，按传左值为&, 右值则匹配
+	void fun1(T&& p){}//T&&未定引用（只有自动发生类型推导判断时），按传左值:按&进行匹配, 右值: 常规匹配
 
 	template<class T>
-	void fun2(const T&& p){}//const修饰，必须右值
+	void fun2(const T&& p){}//被const修饰普通右值
 
 	int32 geta() { return 12; }
 
@@ -80,13 +87,14 @@ namespace t2
 		int32&& e = geta();//左值，右值引用，
 		const int32& f = 12;//const xx& 万能引用 //左值，右值引用
 		const int32&& g = 12;//左值，右值引用
-		fun1(a);
-		fun1(b);
-		fun1(c);
-		fun1(d);
-		fun1(e);
-		fun1(f);
-		fun1(g);
+		fun1(a);//<int&>(int&)
+		fun1(b);//<int&><int&>
+		fun1(c);//<const int&>(const int&)
+		fun1(d);//<const int&>(const int&)
+		fun1(e);//<int&>(int&)
+		fun1(f);//<const int&>(const int&)
+		fun1(g);//<const int&>(const int&)
+		fun1(12);//<int>(int&&)
 
 		//fun2(a);error
 		//fun2(b);error
@@ -130,5 +138,44 @@ namespace t3
 		fun1(d);//<int>(int)
 		fun1(12);//<int>(int)
 		fun1(e);//<int>(int)
+	}
+}
+
+namespace t4
+{
+	//auto 和模板推导一样 
+	//但是auto会假定使用大括号的是一个std::initilalizer_list但是模板不会
+	//函数返回值使用auto或者lambda形参使用auto是使用模板型别推导而非auto
+
+	/*错误 auto fun1()
+	{
+		return {1, 2};
+	}*/
+
+	template<class T, class B>
+	void ff(const T& t1, const B& b2)
+	{
+		core_log_error("---", &t1, &b2);
+	}
+
+	template<class T>
+	void ft(T&& t)
+	{
+		core_log_debug("..", & t);
+		T b = t;
+	}
+
+	void t()
+	{
+		auto f = [](const int& p1, const int& p2) {
+			core_log_error(&p1, &p2);
+		};
+		//int32 a = 1;
+		//f(12, a);
+		//ff(12, a);
+		core_log_debug(&f);
+		ft([](const int& p1, const int& p2) {
+			core_log_error(&p1, &p2);
+			});
 	}
 }
