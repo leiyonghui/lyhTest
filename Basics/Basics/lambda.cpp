@@ -44,7 +44,7 @@ void test3(int32 a, std::function<void()>)
 TEST(problem3)
 {
     int32 id = 0;
-    test3(++id, [id]() {
+    test3(++id, [id]() {//×¢ÒâË³Ğò
         cout << id << endl;// = 0
     });
 }

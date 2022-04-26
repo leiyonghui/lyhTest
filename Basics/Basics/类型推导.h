@@ -130,5 +130,17 @@ namespace t3
 		fun1(d);//<int>(int)
 		fun1(12);//<int>(int)
 		fun1(e);//<int>(int)
+
+		A aA;
+		A&& var1 = A(); // rvalue reference
+		auto&& var2 = var1; // not rvalue reference
+
+		std::shared_ptr<int32> ptr(new int32());
+		core_log_debug("ptr", ptr.get());
+		auto ff = [](auto&& p) {
+			//auto t = std::forward<decltype(auto)>(p);
+		};
+		ff(std::move(ptr));
+		core_log_debug("ptr", ptr.get());
 	}
 }

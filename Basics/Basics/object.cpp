@@ -105,6 +105,13 @@ namespace object
 
 		ObjectOther O = ob;//调用 ObjectOther(const ObjectOther& o)拷贝构造
 		PN(O._valueO);
+
+		ObjectA b2;
+		ObjectA* p2 = &b2;
+		PN((int64)(p2));
+		ObjectB* pa = static_cast<ObjectB*>(p2);
+		PN((int64)(pa));
+		FPOS(ObjectOther, _valueO);
 	}
 }
 

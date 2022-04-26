@@ -1,4 +1,5 @@
 #include "headers.h"
+//#include "test2/headers.h"
 #include "testlist.hpp"
 
 
@@ -130,17 +131,32 @@ public:
 class CCC : public CC
 {
 public:
+	CCC() = default;
+	CCC(const CCC&) = delete;
+	CCC(CCC&&) = delete;
+
 	~CCC()
 	{
 		cout << "ccc" << endl;
 	}
 };
 
+CCC getCCC()
+{
+	return CCC();
+}
+
 int main()
 {
-	std::map<int32, CCC*> m;
-	auto f = core::find(m, 1, 0);
-	cout << f << endl;
+	CCC a;
+	CCC b = getCCC();
+	//CCC c = std::move(a);
+	auto f = [](CCC a) {
+
+	};
+	//f(a);
+
+	
     system("pause");
     return 0;
 }

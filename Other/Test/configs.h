@@ -3,6 +3,7 @@
 #include "core/Configs.h"
 #include "core/ObjectPools.h"
 #include "core/Common.h"
+#include "core/KeyPool.h"
 #include <windows.h>
 
 #pragma comment(lib, "wsock32.lib")

@@ -15,7 +15,9 @@ void testShare();
 
 class Father {
 public:
-	Father() = default;
+	Father() {
+		core_log_debug("test1");
+	}
 	int f;
 };
 

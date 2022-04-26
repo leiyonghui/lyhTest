@@ -108,10 +108,10 @@ namespace example2
 	}
 }
 
-int32 a = 0;
+volatile int32 a = 0;
 void doadd()
 {
-	for(int32 i = 1 ;i < 10000; i++)
+	for(int32 i = 1 ;i <= 10000; i++)
 		++a;
 }
 
