@@ -132,8 +132,8 @@ class CCC : public CC
 {
 public:
 	CCC() = default;
-	CCC(const CCC&) = delete;
-	CCC(CCC&&) = delete;
+	//CCC(const CCC&) = delete;
+	//CCC(CCC&&) = delete;
 
 	~CCC()
 	{
@@ -148,15 +148,7 @@ CCC getCCC()
 
 int main()
 {
-	CCC a;
-	CCC b = getCCC();
-	//CCC c = std::move(a);
-	auto f = [](CCC a) {
-
-	};
-	//f(a);
-
-	
+	std::array<int32, 5> ar;
     system("pause");
     return 0;
 }
