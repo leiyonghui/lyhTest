@@ -12,61 +12,22 @@
     <ClCompile Include="TimerSet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="include">
-      <UniqueIdentifier>{dcff24f4-e71e-4951-8e75-f7fe0e399a61}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\Include\CoreOld\common.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\Configs.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\FastNode.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\List.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\Loger.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\ObjectPools.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\RingBuff.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\SharedPrt.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\Singleton.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\SkipList.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\TimeHelp.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\Timers.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\TimerSet.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\TimerWheel.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\Types.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\Util.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Include\CoreOld\Vector.h">
-      <Filter>include</Filter>
-    </ClInclude>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="Configs.h" />
+    <ClInclude Include="FastNode.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="Loger.h" />
+    <ClInclude Include="ObjectPools.h" />
+    <ClInclude Include="RingBuff.h" />
+    <ClInclude Include="SharedPrt.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SkipList.h" />
+    <ClInclude Include="TimeHelp.h" />
+    <ClInclude Include="Timers.h" />
+    <ClInclude Include="TimerSet.h" />
+    <ClInclude Include="TimerWheel.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="Util.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
 </Project>
