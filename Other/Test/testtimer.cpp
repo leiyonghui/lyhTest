@@ -11,6 +11,7 @@
 #include <time.h>
 #include <map>
 #include <algorithm>
+#include "core/TimerImpl.h"
 
 using namespace core;
 using namespace std;
@@ -186,4 +187,53 @@ void testTimer2()
     }
     //cout << TimerEvent::TotalEvent << endl;
     check.CheckPoint("1");
+}
+
+class Object : public std::enable_shared_from_this<Object>, public TimerImpl<Object>
+{
+public:
+	Object(IScheduler* s, int32 v) : TimerImpl<Object>(s), _v(v) {}
+
+	~Object()
+	{
+		_v = 0;
+	}
+
+	int32 _v;
+};
+
+std::shared_ptr<Object> OBJ;
+
+void testTimer3()
+{
+	TimerSet* wheel = new TimerSet();
+	OBJ = std::make_shared<Object>(wheel, 3);
+	OBJ->startTimer(100ms, 100ms, [](std::shared_ptr<Object> ptr) {
+		cout << ptr->_v << "   "<< TimeHelp::clock().count() << endl;
+	});
+
+	TimeHelp::StartUp();
+	auto thr = std::thread([] {
+		int32 i = 0;
+		while (TimeHelp::clock() < 3000ms)
+		{
+		}
+		OBJ = nullptr;
+		cout << " ddd " << endl;
+	});
+
+	int32 tick = 0, maxTick = 7 * 1000;
+	while (++tick <= maxTick)
+	{
+		Sleep(1);
+		if (tick == 3000) 
+		{
+			//obj = nullptr;
+			cout << " ------ " << endl;
+		}
+		auto now = TimeHelp::clock();
+		wheel->update(now.count());
+	}
+
+	thr.join();
 }

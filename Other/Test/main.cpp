@@ -15,47 +15,89 @@
 //cout << ptr->value << "   " << a->value << endl;
 //cout << &ptr->value << "   " << &a->value << endl;
 
-class Obj;
+//class Object : public std::enable_shared_from_this<Object>
+//{
+//public:
+//	Object()
+//	{
+//
+//	}
+//
+//	~Object()
+//	{
+//		auto w = weak_from_this();
+//		cout << w.expired() << endl;
+//		auto p = shared_from_this();
+//		cout << p->v << endl;
+//	}
+//
+//	int32 v{ 3 };
+//};
 
-class Obj
-{
-public:
-	Obj(int32 v) :value(v)
-	{
 
-	}
+// case1: T* can cast to C*
+//template <template <typename...> class C, typename...Ts>
+//std::true_type is_base_of_template_impl(const C<Ts...>*);
+//// case2: T* cannot cast to C*
+//template <template <typename...> class C>
+//std::false_type is_base_of_template_impl(...);
+//
+//template <template <typename...> class C, typename T>
+//using is_base_of_template = decltype(is_base_of_template_impl<C>(std::declval<T*>()));
 
-	virtual ~Obj()
-	{
-		cout << " del" << endl;
-	}
+//template<class T>
+//class Base
+//{
+//
+//};
+//
+//class ClassA : public Base<ClassA>
+//{
+//
+//};
+//
+//class ClassB : public std::enable_shared_from_this<ClassB>
+//{
+//
+//};
+//
+//template<class T, std::enable_if_t<is_base_of_template<std::enable_shared_from_this, T>::value, int> = 0>
+//class Object
+//{
+//	static_assert(is_base_of_template<std::enable_shared_from_this, T>::value);
+//};
 
-	int32 value;
+
+template <template <typename...> class BaseTemplate, typename Derived, typename TCheck = void>
+struct test_base_template;
+
+template <template <typename...> class BaseTemplate, typename Derived>
+using is_base_of_template = typename test_base_template<BaseTemplate, Derived>::is_base;
+
+//Derive - is a class. Let inherit from Derive, so it can cast to its protected parents
+template <template <typename...> class BaseTemplate, typename Derived>
+struct test_base_template<BaseTemplate, Derived, std::enable_if_t<std::is_class_v<Derived>>> : Derived {
+	template <typename... T>
+	static constexpr std::true_type test(BaseTemplate<T...>*);
+	static constexpr std::false_type test(...);
+	using is_base = decltype(test((Derived*)nullptr));
 };
 
-class Obj;
+//Derive - is not a class, so it is always false_type
+template <template <typename...> class BaseTemplate, typename Derived>
+struct test_base_template<BaseTemplate, Derived, std::enable_if_t<!std::is_class_v<Derived>>> {
+	using is_base = std::false_type;
+};
 
+struct Block
+{
+	
+};
 
-#include "Class.h"
-#include "TestInc.h"
 
 int main(int argc, char** argv)
 {
-	Obj* ptr = new Obj(12);
-	cout << sizeof(Obj) <<"  "<<sizeof(int64)<< endl;
-	auto obj = Object1(12);
-
-	CTestFunc fun([](const Object1& obj) {
-		
-	});
-
-	cout << sizeof(std::function<void(const Object1& obj)>) << endl;
-
-	cout << sizeof(std::function<Object1(int32 a, int32 b)>) << endl;
-
-	cout << sizeof(std::function<int64(int32 a, int32 b, int32 c, int64 d)>) << endl;
-
-	std::function<int64(int32, int32, int32)> f = [](int, int, int) { return 0; };
+	
     return 0;
 }
 
