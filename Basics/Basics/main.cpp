@@ -1,6 +1,5 @@
 #include <atomic>                                                                
 #include <stdio.h>
-#include "core/RingBuff.h"
 #include "headers.h"
 #include "template.h"
 #include "类型推导.h"
@@ -101,28 +100,7 @@ public:
 
 int main()
 {
-	Type t;
-	t_type(t);
-
-	Type2 t2;
-	t_type(t2);
-
-	cout << typeid(AB).hash_code()<< " "<<sizeof(AB)<<"  "<<sizeof(char) << endl;
-	cout << typeid(AAB).hash_code() <<"  "<< sizeof(AAB) << endl;
-	AB appProxy;
-	appProxy[player];
-	appProxy[role];
-	appProxy[player];
-
-	AAB aabProxy;
-	//aabProxy[player];
-	std::thread([] {
-		AB app;
-		app[player];
-	}).join();
-
-	
-	TArray<12> a;
+	testthread::testThread();
     system("pause");
     return 0;
 }

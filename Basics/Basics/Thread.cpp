@@ -138,11 +138,43 @@ namespace add
 		cout << a << endl;
 	}
 }
+
+namespace mu
+{
+	void test()
+	{
+		std::mutex mut;
+		std::condition_variable cond;
+		std::list<int32> list;
+		auto th = std::thread([&list, &mut, &cond]() {
+			cout << "--1" << endl;
+			std::unique_lock<std::mutex> locker(mut);
+			cond.wait(locker, [&list]() ->bool {
+				return !list.empty();
+			});
+			cout << " ==== not empty" << endl;
+
+		});
+		for (int32 i = 1, j = 0 ; i < 1000000;i ++)
+		{
+			j++;
+		}
+		auto th2 = std::thread([&list, &mut, &cond] {
+			std::unique_lock<std::mutex> locker(mut);
+			cout << "----add" << endl;
+			list.push_back(12);
+			cond.notify_one();
+		});
+		th.join();
+		th2.join();
+	}
+}
 namespace testthread
 {
 	void testThread()
 	{
-		add::testadd();
+		mu::test();
+		//add::testadd();
 		//example1();
 		//example2::example2();
 	}
