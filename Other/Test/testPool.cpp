@@ -21,3 +21,11 @@ void testPool()
 	CObjectPoolMonitor::showInfo();
 	//core_log_trace(F->f);
 }
+
+void func1()
+{
+	cout << "----p" << endl;
+}
+
+MAKE_CODE_REGISTER(func1);
+//CStartup("1", func1);

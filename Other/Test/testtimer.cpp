@@ -145,7 +145,7 @@ void testTimer()
 
 void NOW(string str)
 {
-    std::cout << str <<" time:"<< TimeHelp::TimeToString(TimeHelp::now())<< "   clock:"<< TimeHelp::ns2ms(TimeHelp::clock()).count() << endl;
+    std::cout << str <<" time:"<< TimeHelp::TimeToString(TimeHelp::now_time())<< "   clock:"<< TimeHelp::ns2ms(TimeHelp::clock()).count() << endl;
 }
 
 void testTimer2()
@@ -181,7 +181,7 @@ void testTimer2()
     while (++tick <= maxTick)
     {
         Sleep(1);
-        auto now = TimeHelp::clock_ms();
+        auto now = TimeHelp::clock();
         wheel->update(now.count());
     }
     //cout << TimerEvent::TotalEvent << endl;

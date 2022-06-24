@@ -1,154 +1,63 @@
 #include "headers.h"
-//#include "test2/headers.h"
 #include "testlist.hpp"
+#include "core/IntrusiveNode.h"
+#include "core/Macro.h"
+#include "RingBuffer.h"
 
+//int* ptr[2];
+//int(*)ptr[2];
+//int* ptr();
+//int(*)ptr();
+//int(*((*ptr(int, int))))(int);
 
-using func = std::function<void()>;
+//Obj* ptr = static_cast<Obj*>(::operator new(sizeof(Obj)));
+//auto a = new(ptr)Obj(2);
+//cout << ptr->value << "   " << a->value << endl;
+//cout << &ptr->value << "   " << &a->value << endl;
 
-template<class T>
-class C
-{
+class Obj;
 
-};
-
-template<typename T>
-class B
-{
-public:
-	//typedef typename std::vector<T>::iterator Iter;
-	using Iter = typename std::vector<T>::iterator;//这种(::)需要明确是类型还是值
-	static typename Iter ITER;
-};
-
-template<class T>
-typename B<T>::Iter B<T>::ITER = std::vector<T>::iterator();
-
-
-template <typename T> class X
-{
-	int i;
-	std::vector<int> ivec;
-	std::vector<int>::iterator iter;
-
-	T type;
-	std::vector<T> tvec;
-	typename std::vector<T>::iterator titer;
-};
-
-
-class BB
-{
-	template<class ...Args>
-	void pf(Args ...args)
-	{
-
-	}
-};
-  
-
-class F1
+class Obj
 {
 public:
-	 ~F1() {
-		cout << " f1" << endl;
+	Obj(int32 v) :value(v)
+	{
+
 	}
+
+	virtual ~Obj()
+	{
+		cout << " del" << endl;
+	}
+
+	int32 value;
 };
 
-class F2 : public F1
+class Obj;
+
+
+#include "Class.h"
+#include "TestInc.h"
+
+int main(int argc, char** argv)
 {
-public:
-	virtual ~F2()
-	{
-		cout << "f2" << endl;
-	}
-};
+	Obj* ptr = new Obj(12);
+	cout << sizeof(Obj) <<"  "<<sizeof(int64)<< endl;
+	auto obj = Object1(12);
 
-class Base
-{
-public:
-	virtual void fun(int32 a)
-	{
-		cout << "int" << endl;
-	}
+	CTestFunc fun([](const Object1& obj) {
+		
+	});
 
-	void fun(double a, int32 b)
-	{
-	}
+	cout << sizeof(std::function<void(const Object1& obj)>) << endl;
 
-	virtual void fun(double a)
-	{
-		cout << "double" << endl;
-	}
+	cout << sizeof(std::function<Object1(int32 a, int32 b)>) << endl;
 
-};
+	cout << sizeof(std::function<int64(int32 a, int32 b, int32 c, int64 d)>) << endl;
 
-class SBace : public Base
-{
-public:
-	virtual void fun(int32 a)//会把fun(a,b)覆盖
-	{
-		cout << "sint" << endl;
-	}
-
-	virtual void fun(double a) override
-	{
-		cout << "sdouble" << endl;
-	}
-};
-
-#include <variant>
-
-constexpr int getindex(int32 i);
-
-constexpr int getindex(int32 i)
-{
-	if (i == 0)
-	{
-		return 1;
-	}
-}
-
-template<int A>
-void tt()
-{
-	cout << A << endl;
-}
-
-class CC
-{
-public:
-	CC() = default;
-
-	~CC()
-	{
-		cout << "cc" << endl;
-	}
-
-	std::map<int32, F2> mp;
-	
-};
-
-class CCC : public CC
-{
-public:
-	CCC() = default;
-	//CCC(const CCC&) = delete;
-	//CCC(CCC&&) = delete;
-
-	~CCC()
-	{
-		cout << "ccc" << endl;
-	}
-};
-
-CCC getCCC()
-{
-	return CCC();
-}
-
-int main()
-{
-	std::array<int32, 5> ar;
-    system("pause");
+	std::function<int64(int32, int32, int32)> f = [](int, int, int) { return 0; };
     return 0;
 }
+
+
+

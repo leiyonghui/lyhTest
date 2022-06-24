@@ -47,3 +47,5 @@ void testShare()
 		cout << "======" << endl;
 	}
 }
+
+MAKE_CODE_REGISTER(testShare);

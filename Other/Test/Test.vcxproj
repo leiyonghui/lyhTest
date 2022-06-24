@@ -164,16 +164,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="RingBuffer.cpp" />
     <ClCompile Include="testBuff.cpp" />
     <ClCompile Include="testchrono.cpp" />
+    <ClCompile Include="TestInc.cpp" />
     <ClCompile Include="testshared.cpp" />
     <ClCompile Include="testPool.cpp" />
     <ClCompile Include="testtimer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Class.h" />
     <ClInclude Include="configs.h" />
     <ClInclude Include="headers.h" />
+    <ClInclude Include="IIOBuffer.h" />
+    <ClInclude Include="RingBuffer.h" />
+    <ClInclude Include="TestInc.h" />
     <ClInclude Include="testlist.hpp" />
+    <ClInclude Include="内存布局.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

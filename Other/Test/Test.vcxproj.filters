@@ -7,10 +7,17 @@
     <ClCompile Include="testchrono.cpp" />
     <ClCompile Include="testshared.cpp" />
     <ClCompile Include="testPool.cpp" />
+    <ClCompile Include="RingBuffer.cpp" />
+    <ClCompile Include="TestInc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="testlist.hpp" />
     <ClInclude Include="headers.h" />
     <ClInclude Include="configs.h" />
+    <ClInclude Include="内存布局.h" />
+    <ClInclude Include="IIOBuffer.h" />
+    <ClInclude Include="RingBuffer.h" />
+    <ClInclude Include="Class.h" />
+    <ClInclude Include="TestInc.h" />
   </ItemGroup>
 </Project>
