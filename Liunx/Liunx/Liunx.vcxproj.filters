@@ -5,11 +5,15 @@
     <ClInclude Include="Configs.h" />
     <ClInclude Include="Address.h" />
     <ClInclude Include="Util.h" />
+    <ClInclude Include="TestInc.h" />
+    <ClInclude Include="TestClass.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="echo_client.cpp" />
     <ClCompile Include="echo_epollserv.cpp" />
     <ClCompile Include="Address.cpp" />
+    <ClCompile Include="TestInc.cpp" />
+    <ClCompile Include="TestClass.cpp" />
   </ItemGroup>
 </Project>

@@ -63,7 +63,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
-    <ConfigurationType>Makefile</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -87,11 +87,15 @@
     <ClCompile Include="echo_client.cpp" />
     <ClCompile Include="echo_epollserv.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestClass.cpp" />
+    <ClCompile Include="TestInc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Address.h" />
     <ClInclude Include="Configs.h" />
     <ClInclude Include="headers.h" />
+    <ClInclude Include="TestClass.h" />
+    <ClInclude Include="TestInc.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
