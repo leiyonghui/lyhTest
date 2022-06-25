@@ -10,6 +10,8 @@ void testTimer();
 void testTimer2();
 void testTimer3();
 
+void testTimer3();
+
 void testPool();
 
 void testShare();

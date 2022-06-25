@@ -97,7 +97,7 @@ struct Block
 
 int main(int argc, char** argv)
 {
-	
+	testTimer3();
     return 0;
 }
 

@@ -203,7 +203,8 @@ public:
 };
 
 std::shared_ptr<Object> OBJ;
-
+#include <algorithm>
+#include <random>
 void testTimer3()
 {
 	TimerSet* wheel = new TimerSet();
@@ -211,18 +212,19 @@ void testTimer3()
 	OBJ->startTimer(100ms, 100ms, [](std::shared_ptr<Object> ptr) {
 		cout << ptr->_v << "   "<< TimeHelp::clock().count() << endl;
 	});
+    std::vector<int64> ids;
+    for (int32 i = 1; i <= 1000; i++)
+    {
+        ids.push_back(OBJ->startTimer(1ms * i, i % 2 ? 1ms * 2 : 0ms, [i](std::shared_ptr<Object> ptr) {
+            cout << " - " << i << endl;
+         }));
+    }
+    std::shuffle(ids.begin(), ids.end(), std::random_device());
 
 	TimeHelp::StartUp();
-	auto thr = std::thread([] {
-		int32 i = 0;
-		while (TimeHelp::clock() < 3000ms)
-		{
-		}
-		OBJ = nullptr;
-		cout << " ddd " << endl;
-	});
 
-	int32 tick = 0, maxTick = 7 * 1000;
+	
+	int32 tick = 0, maxTick = 70 * 1000;
 	while (++tick <= maxTick)
 	{
 		Sleep(1);
@@ -233,7 +235,18 @@ void testTimer3()
 		}
 		auto now = TimeHelp::clock();
 		wheel->update(now.count());
+        if (tick % 10 == 1 && !ids.empty())
+        {
+			auto id = ids.back();
+			ids.pop_back();
+			cout << " stop :" << id << "  " << OBJ->stopTimer(id) << endl;
+        }
+        if (tick > 50000)
+        {
+			OBJ = nullptr;
+			cout << " ddd " << endl;
+        }
+		
 	}
 
-	thr.join();
 }
