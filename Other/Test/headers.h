@@ -19,7 +19,7 @@ void testShare();
 class Father {
 public:
 	Father() {
-		core_log_debug("test1");
+		//core_log_debug("test1");
 	}
 	int f;
 };
@@ -30,6 +30,11 @@ public:
 	int a;
 	std::map<int, int> mp;
 	std::unique_ptr<int32> ptr;
+
+	void onAwake(int32 a)
+	{
+		std::cout << "0--awarke1 " << a << endl;
+	}
 
 	void onAwake(const std::map<int, int>& m) {
 		std::cout << "1--awake1 " << m.size() << std::endl;

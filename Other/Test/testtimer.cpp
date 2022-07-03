@@ -166,7 +166,7 @@ void testTimer2()
 	int64 id;
     int32 sum = 0;
 	TimeHelp::StartUp();
-    id = hander->addTimer(100ms, 1000ms, 5, [hander, &id, &sum]() {
+    id = hander->addTimer(0, 100ms, 1000ms, 5, [hander, &id, &sum]() {
         sum++;
         if (sum == 3)
         {
