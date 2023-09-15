@@ -9,6 +9,7 @@
     <ClCompile Include="testPool.cpp" />
     <ClCompile Include="RingBuffer.cpp" />
     <ClCompile Include="TestInc.cpp" />
+    <ClCompile Include="Activity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="testlist.hpp" />
@@ -19,5 +20,6 @@
     <ClInclude Include="RingBuffer.h" />
     <ClInclude Include="Class.h" />
     <ClInclude Include="TestInc.h" />
+    <ClInclude Include="Activity.h" />
   </ItemGroup>
 </Project>
